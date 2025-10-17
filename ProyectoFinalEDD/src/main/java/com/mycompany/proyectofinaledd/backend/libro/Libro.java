@@ -14,13 +14,15 @@ public class Libro {
     private String genero;
     private int anio;
     private String autor;
+    private TypeEstado estado;
 
-    public Libro(String titulo, String ISBN, String genero, int anio, String autor) {
+    public Libro(String titulo, String ISBN, String genero, int anio, String autor, TypeEstado estado) {
         this.titulo = titulo;
         this.ISBN = ISBN;
         this.genero = genero;
         this.anio = anio;
         this.autor = autor;
+        this.estado = estado;
     }
 
     public String getTitulo() {
@@ -61,6 +63,14 @@ public class Libro {
 
     public void setAutor(String autor) {
         this.autor = autor;
+    }
+
+    public String getEstado() {
+        return estado.toString();
+    }
+
+    public void setEstado(TypeEstado estado) {
+        this.estado = estado;
     }
     
     
