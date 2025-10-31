@@ -4,18 +4,40 @@
  */
 package com.mycompany.proyectofinaledd.backend.grafo;
 
+import com.mycompany.proyectofinaledd.backend.libro.Libro;
+import com.mycompany.proyectofinaledd.backend.listaenlazada.ListaEnlazada;
+
 /**
  *
  * @author brandon
  */
 public class Biblioteca {
+    
+    private String id;
     private String nombre;
-    double tiempoIngreso, tiempoPreparacion, intervaloDespacho;
+    private String ubicacion;
+    private int tiempoIngreso;
+    private int tiempoTraspaso;
+    private int tiempoPreparacion;
+    private int intervaloDespacho;
+    
+    private ListaEnlazada<Libro> colaIngreso;
+    private ListaEnlazada<Libro> colaTraspaso;
+    private ListaEnlazada<Libro> colaSalida;
 
-    public Biblioteca(String nombre, double tiempoIngreso, double tiempoPreparacion, double intervaloDespacho) {
+    public Biblioteca(String nombre, String ubicacion, int tiempoIngreso, int tiempoPreparacion) {
         this.nombre = nombre;
+        this.ubicacion = ubicacion;
         this.tiempoIngreso = tiempoIngreso;
         this.tiempoPreparacion = tiempoPreparacion;
+    }
+    
+    public Biblioteca(String id, String nombre, String ubicacion, int tiempoIngreso, int tiempoTraspaso, int intervaloDespacho) {
+        this.id = id;
+        this.nombre = nombre;
+        this.ubicacion = ubicacion;
+        this.tiempoIngreso = tiempoIngreso;
+        this.tiempoTraspaso = tiempoTraspaso;
         this.intervaloDespacho = intervaloDespacho;
     }
 
@@ -25,5 +47,73 @@ public class Biblioteca {
     
     public String toString(){ 
         return nombre; 
+    }
+
+    public double getTiempoIngreso() {
+        return tiempoIngreso;
+    }
+
+    public void setTiempoIngreso(int tiempoIngreso) {
+        this.tiempoIngreso = tiempoIngreso;
+    }
+
+    public double getTiempoPreparacion() {
+        return tiempoPreparacion;
+    }
+
+    public void setTiempoPreparacion(int tiempoPreparacion) {
+        this.tiempoPreparacion = tiempoPreparacion;
+    }
+
+    public double getIntervaloDespacho() {
+        return intervaloDespacho;
+    }
+
+    public void setIntervaloDespacho(int intervaloDespacho) {
+        this.intervaloDespacho = intervaloDespacho;
+    }
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
+    public ListaEnlazada<Libro> getColaIngreso() {
+        return colaIngreso;
+    }
+
+    public ListaEnlazada<Libro> getColaTraspaso() {
+        return colaTraspaso;
+    }
+
+    public void setColaTraspaso(ListaEnlazada<Libro> colaTraspaso) {
+        this.colaTraspaso = colaTraspaso;
+    }
+
+    public ListaEnlazada<Libro> getColaSalida() {
+        return colaSalida;
+    }
+
+    public void setColaSalida(ListaEnlazada<Libro> colaSalida) {
+        this.colaSalida = colaSalida;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public double getTiempoTraspaso() {
+        return tiempoTraspaso;
+    }
+
+    public void setTiempoTraspaso(int tiempoTraspaso) {
+        this.tiempoTraspaso = tiempoTraspaso;
     }
 }

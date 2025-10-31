@@ -4,9 +4,8 @@
 
 package com.mycompany.proyectofinaledd;
 
-import com.mycompany.proyectofinaledd.backend.grafo.Biblioteca;
-import com.mycompany.proyectofinaledd.backend.grafo.Grafo;
-import com.mycompany.proyectofinaledd.backend.matrizadyacencia.MatrizAdyacenciaCostos;
+import com.mycompany.proyectofinaledd.backend.Controlador;
+import com.mycompany.proyectofinaledd.frontend.inicio.Inicio;
 
 /**
  *
@@ -15,7 +14,12 @@ import com.mycompany.proyectofinaledd.backend.matrizadyacencia.MatrizAdyacenciaC
 public class ProyectoFinalEDD {
 
     public static void main(String[] args) {
-        System.out.println("Proyecto final EDD!");
+        Controlador controlador = new Controlador();
+        Inicio iniciar = new Inicio(controlador);
+        controlador.setInicio(iniciar);
+        iniciar.setLocationRelativeTo(null);
+        iniciar.setVisible(true);
+        
         /*
         MatrizAdyacenciaCostos grafo = new MatrizAdyacenciaCostos(4);
         
@@ -26,14 +30,14 @@ public class ProyectoFinalEDD {
         grafo.agregarArista(3, 0, 8);
         
         grafo.mostrarMatriz();
-*/
+
         Grafo g = new Grafo(6);
         
-        int a = g.addLibrary(new Biblioteca("Central", 5, 3, 2));
-        int b = g.addLibrary(new Biblioteca("Norte", 4, 2, 1.5));
-        int c = g.addLibrary(new Biblioteca("Sur", 6, 2.5, 2.5));
-        int d = g.addLibrary(new Biblioteca("Este", 3.5, 2, 1));
-        int e = g.addLibrary(new Biblioteca("Oeste", 4.5, 2.5, 2));
+        int a = g.agregarBiblioteca(new Biblioteca("Central", 5, 3, 2));
+        int b = g.agregarBiblioteca(new Biblioteca("Norte", 4, 2, 1.5));
+        int c = g.agregarBiblioteca(new Biblioteca("Sur", 6, 2.5, 2.5));
+        int d = g.agregarBiblioteca(new Biblioteca("Este", 3.5, 2, 1));
+        int e = g.agregarBiblioteca(new Biblioteca("Oeste", 4.5, 2.5, 2));
         
         g.agregarConexion(a, b, 10, 5, true);
         g.agregarConexion(a, c, 20, 8, true);
@@ -43,5 +47,6 @@ public class ProyectoFinalEDD {
         g.agregarConexion(e, a, 15, 5.5, true);
         
         g.mostrarMatrizAdyacencia();
+*/
     }
 }

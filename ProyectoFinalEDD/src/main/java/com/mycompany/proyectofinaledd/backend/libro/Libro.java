@@ -4,17 +4,24 @@
  */
 package com.mycompany.proyectofinaledd.backend.libro;
 
+import com.mycompany.proyectofinaledd.backend.grafo.Biblioteca;
+
 /**
  *
  * @author brandon
  */
 public class Libro {
+    
     private String titulo;
     private String ISBN;
     private String genero;
     private int anio;
     private String autor;
     private TypeEstado estado;
+    private boolean prioridadTiempo;
+    private Biblioteca bibliotecaOrigen;
+    private Biblioteca bibliotecaDestino;
+    private String prioridad;
 
     public Libro(String titulo, String ISBN, String genero, int anio, String autor, TypeEstado estado) {
         this.titulo = titulo;
@@ -25,6 +32,16 @@ public class Libro {
         this.estado = estado;
     }
 
+    public Libro(String titulo, String ISBN, String genero, int anio, String autor, TypeEstado estado, boolean prioridadTiempo) {
+        this.titulo = titulo;
+        this.ISBN = ISBN;
+        this.genero = genero;
+        this.anio = anio;
+        this.autor = autor;
+        this.estado = estado;
+        this.prioridadTiempo = prioridadTiempo;
+    }
+    
     public String getTitulo() {
         return titulo;
     }
@@ -71,6 +88,38 @@ public class Libro {
 
     public void setEstado(TypeEstado estado) {
         this.estado = estado;
+    }
+
+    public boolean isPrioridadTiempo() {
+        return prioridadTiempo;
+    }
+
+    public void setPrioridadTiempo(boolean prioridadTiempo) {
+        this.prioridadTiempo = prioridadTiempo;
+    }
+
+    public Biblioteca getBibliotecaDestino() {
+        return bibliotecaDestino;
+    }
+
+    public void setBibliotecaDestino(Biblioteca bibliotecaDestino) {
+        this.bibliotecaDestino = bibliotecaDestino;
+    }
+
+    public Biblioteca getBibliotecaOrigen() {
+        return bibliotecaOrigen;
+    }
+
+    public void setBibliotecaOrigen(Biblioteca bibliotecaOrigen) {
+        this.bibliotecaOrigen = bibliotecaOrigen;
+    }
+
+    public String getPrioridad() {
+        return prioridad;
+    }
+
+    public void setPrioridad(String prioridad) {
+        this.prioridad = prioridad;
     }
     
     
