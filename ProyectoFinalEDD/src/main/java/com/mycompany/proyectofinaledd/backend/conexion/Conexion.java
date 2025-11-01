@@ -6,20 +6,19 @@ package com.mycompany.proyectofinaledd.backend.conexion;
 
 import com.mycompany.proyectofinaledd.backend.grafo.Biblioteca;
 
-/**
- *
+/*
  * @author brandon
  */
 public class Conexion {
     private Biblioteca origen;
     private Biblioteca destino;
-    private double peso;
+    private int pesoTiempo;
     private double pesoCosto;
 
-    public Conexion(Biblioteca origen, Biblioteca destino, double pesoTiempo, double pesoCosto) {
+    public Conexion(Biblioteca origen, Biblioteca destino, int pesoTiempo, double pesoCosto) {
         this.origen = origen;
         this.destino = destino;
-        this.peso = pesoTiempo;
+        this.pesoTiempo = pesoTiempo;
         this.pesoCosto = pesoCosto;
     }
 
@@ -47,12 +46,12 @@ public class Conexion {
         this.pesoCosto = pesoCosto;
     }
     
-    public double getPeso() {
-        return peso;
+    public int getPesoTiempo() {
+        return pesoTiempo;
     }
 
-    public void setPeso(double peso) {
-        this.peso = peso;
+    public void setPesoTiempo(int peso) {
+        this.pesoTiempo = peso;
     }
     
 }

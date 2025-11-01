@@ -5,7 +5,7 @@
 package com.mycompany.proyectofinaledd.backend.biblioteca;
 
 import com.mycompany.proyectofinaledd.backend.libro.Libro;
-import com.mycompany.proyectofinaledd.backend.listaenlazada.ListaEnlazada;
+import com.mycompany.proyectofinaledd.backend.listaenlazada.ListaEnlazadaDoble;
 
 /**
  *
@@ -18,9 +18,9 @@ public class Biblioteca {
     private int tiempoTraspaso;
     private String prioridad;
     
-    private ListaEnlazada<Libro> colaIngreso = new ListaEnlazada<>();
-    private ListaEnlazada<Libro> colaTraspaso = new ListaEnlazada<>();
-    private ListaEnlazada<Libro> colaSalida = new ListaEnlazada<>();
+    private ListaEnlazadaDoble<Libro> colaIngreso = new ListaEnlazadaDoble<>();
+    private ListaEnlazadaDoble<Libro> colaTraspaso = new ListaEnlazadaDoble<>();
+    private ListaEnlazadaDoble<Libro> colaSalida = new ListaEnlazadaDoble<>();
 
     public Biblioteca(String nombre, String ubicacion, int tiempoIngreso, int tiempoTraspaso) {
         this.nombre = nombre;
@@ -70,15 +70,15 @@ public class Biblioteca {
         this.tiempoTraspaso = tiempoTraspaso;
     }
 
-    public ListaEnlazada<Libro> getColaIngreso() {
+    public ListaEnlazadaDoble<Libro> getColaIngreso() {
         return colaIngreso;
     }
 
-    public ListaEnlazada<Libro> getColaTraspaso() {
+    public ListaEnlazadaDoble<Libro> getColaTraspaso() {
         return colaTraspaso;
     }
 
-    public ListaEnlazada<Libro> getColaSalida() {
+    public ListaEnlazadaDoble<Libro> getColaSalida() {
         return colaSalida;
     }
 

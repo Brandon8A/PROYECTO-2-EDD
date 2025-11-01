@@ -8,10 +8,12 @@ import com.mycompany.proyectofinaledd.backend.conexion.Conexion;
 import com.mycompany.proyectofinaledd.backend.exception.ExceptionBibliotecaMagica;
 import com.mycompany.proyectofinaledd.backend.grafo.Biblioteca;
 import com.mycompany.proyectofinaledd.backend.grafo.GrafoBiblioteca;
+import com.mycompany.proyectofinaledd.backend.grafo.NodoGrafo;
 import com.mycompany.proyectofinaledd.backend.libro.Libro;
 import com.mycompany.proyectofinaledd.backend.libro.TypeEstado;
-import com.mycompany.proyectofinaledd.backend.listaenlazada.ListaEnlazada;
-import com.mycompany.proyectofinaledd.backend.listaenlazada.NodoListaEnlazada;
+import com.mycompany.proyectofinaledd.backend.listaenlazada.ListaEnlazadaDoble;
+import com.mycompany.proyectofinaledd.backend.listaenlazada.NodoListaEnlazadaDoble;
+import com.mycompany.proyectofinaledd.frontend.error.DialogErrorLineas;
 import com.mycompany.proyectofinaledd.frontend.filechooser.FileChooser;
 import com.mycompany.proyectofinaledd.frontend.inicio.Inicio;
 import java.io.BufferedReader;
@@ -32,16 +34,20 @@ public class Controlador {
     private boolean hayConexiones = false;
     private boolean hayLibros = false;
     private GrafoBiblioteca grafoBibliotecas;
-    private ListaEnlazada<String> erroresCargaArchivos;
-    private ListaEnlazada<Libro> libros;
-    private ListaEnlazada<Biblioteca> bibliotecas;
-    private ListaEnlazada<Conexion> conexiones;
+    private ListaEnlazadaDoble<String> erroresCargaArchivos;
+    private ListaEnlazadaDoble<Libro> libros;
+    private ListaEnlazadaDoble<Biblioteca> bibliotecas;
+    private ListaEnlazadaDoble<Conexion> conexiones;
+    private int tamanioMatrizAdyacencia;
+    private int matrizAdyacenciaTiempos[][];
+    private double matrizAdyacenciaCostos[][];
 
     public Controlador() {
-        this.bibliotecas = new ListaEnlazada<>();
-        this.libros = new ListaEnlazada<>();
-        this.conexiones = new ListaEnlazada<>();
-        this.erroresCargaArchivos = new ListaEnlazada<>();
+        this.bibliotecas = new ListaEnlazadaDoble<>();
+        this.libros = new ListaEnlazadaDoble<>();
+        this.conexiones = new ListaEnlazadaDoble<>();
+        this.erroresCargaArchivos = new ListaEnlazadaDoble<>();
+        this.grafoBibliotecas = new GrafoBiblioteca();
     }
 
     private File archivoCSV() throws ExceptionBibliotecaMagica {
@@ -64,6 +70,8 @@ public class Controlador {
      * Metodo que carga los libros desde un archivo con extension csv
      */
     public void cargarLibros() {
+        this.erroresCargaArchivos.eliminarLista();
+        
         try {
             File archivo = this.archivoCSV();
 
@@ -81,7 +89,13 @@ public class Controlador {
 
                     String[] datos = linea.split(",");
                     if (datos.length < 9) {
-                        System.out.println("⚠ Línea ignorada (formato incorrecto): " + linea);
+                        System.out.println("⚠Línea ignorada (formato incorrecto): " + linea);
+                        this.erroresCargaArchivos.agregarValorAlFinal("Línea ["+ numeroLinea +"] ignorada (formato incorrecto): " + linea);
+                        continue;
+                    }
+                    
+                    if (this.validarISBN(datos[1], datos[0])) {
+                        this.erroresCargaArchivos.agregarValorAlFinal("Línea ["+ numeroLinea +"] ignorada (ISBN incorrecto): " + linea);
                         continue;
                     }
 
@@ -116,11 +130,13 @@ public class Controlador {
 
                         if (bibliotecaOrigen == null) {
                             System.out.println("⚠No se encontró biblioteca de origen: " + idOrigen);
+                            this.erroresCargaArchivos.agregarValorAlFinal("Error en linea ["+ numeroLinea +"] no se encontró biblioteca de origen: " + idOrigen);
                             continue;
                         }
 
                         if (bibliotecaDestino == null) {
                             System.out.println("⚠No se encontró biblioteca de destino: " + idDestino);
+                            this.erroresCargaArchivos.agregarValorAlFinal("Error en linea ["+ numeroLinea +"] no se encontró biblioteca de destino: " + idDestino);
                             continue;
                         }
 
@@ -158,14 +174,15 @@ public class Controlador {
     }
 
     /**
-     * Funcion que indica si el isbn es valido: si existe pero con el mismo titulo
-     * es valido, si existe pero con otro titulo se rechaza
+     * Funcion que indica si el isbn es valido: si existe pero con el mismo
+     * titulo es valido, si existe pero con otro titulo se rechaza
+     *
      * @param isbn isbn a comparar con los ya registrados
      * @param titulo titulo del libro a comparar
      * @return retorna verdadero si el isbn es valido o falso si es invalido
      */
     private boolean validarISBN(String isbn, String titulo) {
-        NodoListaEnlazada<Libro> actual = this.libros.getInicio();
+        NodoListaEnlazadaDoble<Libro> actual = this.libros.getInicio();
         while (actual != null) {
             Libro existente = actual.getDato();
             if (existente.getISBN().equalsIgnoreCase(isbn)) {
@@ -177,7 +194,7 @@ public class Controlador {
                             "Error: El ISBN " + isbn + " ya está registrado para otro libro: "
                             + existente.getTitulo(),
                             "ISBN duplicado", JOptionPane.ERROR_MESSAGE);
-                    */
+                     */
                     return false;
                 }
             }
@@ -203,17 +220,17 @@ public class Controlador {
                 }
 
                 String[] datos = linea.split(",");
-                
+
                 //Verica que la linea a analizar tenga la cantidad de campos correctos
                 if (datos.length < 6) {
-                    System.out.println("⚠ Línea ignorada (formato incorrecto): " + linea);
-                    this.erroresCargaArchivos.agregarValorAlFinal("Error de formato incorrecto en linea: " + numeroLinea + ": " + linea);
+                    System.out.println("⚠Línea ignorada (formato incorrecto): " + linea);
+                    this.erroresCargaArchivos.agregarValorAlFinal("Error de formato incorrecto en linea: [" + numeroLinea + "] " + linea);
                     continue;
                 }
-                
+
                 //Verifica que el id de la nueva biblioteca no se repita con otra ya ingresada
-                if (validoIdBiblioteca(datos[0])) {
-                    this.erroresCargaArchivos.agregarValorAlFinal("Error de ID en linea: " + numeroLinea + ": " + linea);
+                if (!validoIdBiblioteca(datos[0])) {
+                    this.erroresCargaArchivos.agregarValorAlFinal("Error de ID Biblioteca en linea: [" + numeroLinea + "] " + linea);
                     continue;
                 }
 
@@ -232,6 +249,8 @@ public class Controlador {
 
                     // Agregar al final de la lista enlazada de bibliotecas
                     bibliotecas.agregarValorAlFinal(biblioteca);
+                    //Agregando y creando nodos del grafo con su respectiva biblioteca
+                    this.grafoBibliotecas.getNodosGrafo().agregarValorAlFinal(new NodoGrafo(biblioteca));
 
                 } catch (Exception e) {
                     System.out.println("⚠ Error procesando línea " + numeroLinea + ": " + e.getMessage());
@@ -242,20 +261,29 @@ public class Controlador {
             JOptionPane.showMessageDialog(null,
                     "Se cargaron un total de: " + bibliotecas.getTamanio() + " bibliotecas con éxito!",
                     "Éxito", JOptionPane.INFORMATION_MESSAGE);
-
+            this.tamanioMatrizAdyacencia = this.bibliotecas.getTamanio();
+            this.matrizAdyacenciaTiempos = new int[this.tamanioMatrizAdyacencia][this.tamanioMatrizAdyacencia];
+            this.matrizAdyacenciaCostos = new double[this.tamanioMatrizAdyacencia][this.tamanioMatrizAdyacencia];
+            if (erroresCargaArchivos.getTamanio() != 0) {
+                DialogErrorLineas errores = new DialogErrorLineas(null, true, erroresCargaArchivos);
+                errores.setLocationRelativeTo(null);
+                errores.setVisible(true);
+            }
+            this.hayBibliotecas = true;
         } catch (IOException e) {
             throw new ExceptionBibliotecaMagica("Error al leer el archivo de bibliotecas: " + e.getMessage());
         }
     }
-    
+
     /**
-     * Funcion que valida si un id esta o no repetido dentro de la lista enlazada
-     * de bibliotecas
+     * Funcion que valida si un id esta o no repetido dentro de la lista
+     * enlazada de bibliotecas
+     *
      * @param idBiblioteca el id de la biblioteca que se va a ingresar
      * @return retorna verdadero o falso si el id existe o no
      */
-    private boolean validoIdBiblioteca(String idBiblioteca){
-        NodoListaEnlazada<Biblioteca> actual = this.bibliotecas.getInicio();
+    private boolean validoIdBiblioteca(String idBiblioteca) {
+        NodoListaEnlazadaDoble<Biblioteca> actual = this.bibliotecas.getInicio();
         while (actual != null) {
             Biblioteca existente = actual.getDato();
             if (existente.getId().equalsIgnoreCase(idBiblioteca)) {
@@ -274,7 +302,8 @@ public class Controlador {
      */
     public void cargarConexiones() throws ExceptionBibliotecaMagica {
         File archivo = archivoCSV();//Archivo csv seleccionado 
-
+        this.erroresCargaArchivos.eliminarLista();
+        
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             String linea;
             int numeroLinea = 0;
@@ -290,21 +319,25 @@ public class Controlador {
                 String[] datos = linea.split(",");
                 if (datos.length < 4) {
                     System.out.println("⚠Línea ignorada (formato incorrecto): " + linea);
+                    this.erroresCargaArchivos.agregarValorAlFinal("Línea ["+ numeroLinea +"] ignorada (formato incorrecto): " + linea);
                     continue;
                 }
 
                 try {
-                    String nombreOrigen = datos[0].trim();
-                    String nombreDestino = datos[1].trim();
-                    double tiempo = Double.parseDouble(datos[2].trim());
+                    String idOrigen = datos[0].trim();
+                    String idDestino = datos[1].trim();
+                    int tiempo = Integer.parseInt(datos[2].trim());
                     double costo = Double.parseDouble(datos[3].trim());
 
                     // Buscar las bibliotecas registradas en el grafo
-                    Biblioteca origen = grafoBibliotecas.getBiblioteca(nombreOrigen);
-                    Biblioteca destino = grafoBibliotecas.getBiblioteca(nombreDestino);
+                    Biblioteca origen = grafoBibliotecas.getBibliotecaPorId(idOrigen);
+                    Biblioteca destino = grafoBibliotecas.getBibliotecaPorId(idDestino);
 
-                    if (origen == null || destino == null) {
-                        System.out.println("⚠ No se encontró una o ambas bibliotecas: " + nombreOrigen + " -> " + nombreDestino);
+                    if (origen == null) {
+                        this.erroresCargaArchivos.agregarValorAlFinal("Error de biblioteca origen en línea [" + numeroLinea + "]: " + linea);
+                        continue;
+                    } else if (destino == null) {
+                        this.erroresCargaArchivos.agregarValorAlFinal("Error de biblioteca destino en línea [" + numeroLinea + "]: " + linea);
                         continue;
                     }
 
@@ -312,21 +345,31 @@ public class Controlador {
                     Conexion conexion = new Conexion(origen, destino, tiempo, costo);
                     conexiones.agregarValorAlFinal(conexion);
                     //conexiones.add(conexion);
-
-                    grafoBibliotecas.agregarConexion(origen, destino, tiempo, costo);
+                    //grafoBibliotecas.agregarConexion(origen, destino, tiempo, costo);
 
                 } catch (NumberFormatException e) {
-                    System.out.println("⚠ Error de formato numérico en línea " + numeroLinea + ": " + e.getMessage());
+                    System.out.println("⚠Error de formato numérico en línea " + numeroLinea + ": " + e.getMessage());
+                    this.erroresCargaArchivos.agregarValorAlFinal("Error de formato numérico en línea [" + numeroLinea + "]: " + linea);
                 }
             }
-
+            grafoBibliotecas.agregarConexion(this.conexiones);
             System.out.println("✅ Carga completada: " + conexiones.getTamanio() + " conexiones agregadas al grafo.");
-
+            JOptionPane.showMessageDialog(null,
+                    "Se cargaron un total de: " + conexiones.getTamanio() + " conexiones con éxito!",
+                    "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            if (erroresCargaArchivos.getTamanio() != 0) {
+                DialogErrorLineas errores = new DialogErrorLineas(null, true, erroresCargaArchivos);
+                errores.setLocationRelativeTo(null);
+                errores.setVisible(true);
+            }
+            this.hayConexiones = true;
         } catch (IOException e) {
             throw new ExceptionBibliotecaMagica("Error al leer el archivo de conexiones: " + e.getMessage());
         }
+        
+        grafoBibliotecas.mostrarCaminosOptimos("Almacen principal", false);
     }
-
+    
     public Inicio getInicio() {
         return inicio;
     }
@@ -343,27 +386,27 @@ public class Controlador {
         this.grafoBibliotecas = grafoBibliotecas;
     }
 
-    public ListaEnlazada<Libro> getLibros() {
+    public ListaEnlazadaDoble<Libro> getLibros() {
         return libros;
     }
 
-    public void setLibros(ListaEnlazada<Libro> libros) {
+    public void setLibros(ListaEnlazadaDoble<Libro> libros) {
         this.libros = libros;
     }
 
-    public ListaEnlazada<Biblioteca> getBibliotecas() {
+    public ListaEnlazadaDoble<Biblioteca> getBibliotecas() {
         return bibliotecas;
     }
 
-    public void setBibliotecas(ListaEnlazada<Biblioteca> bibliotecas) {
+    public void setBibliotecas(ListaEnlazadaDoble<Biblioteca> bibliotecas) {
         this.bibliotecas = bibliotecas;
     }
 
-    public ListaEnlazada<Conexion> getConexiones() {
+    public ListaEnlazadaDoble<Conexion> getConexiones() {
         return conexiones;
     }
 
-    public void setConexiones(ListaEnlazada<Conexion> conexiones) {
+    public void setConexiones(ListaEnlazadaDoble<Conexion> conexiones) {
         this.conexiones = conexiones;
     }
 
@@ -378,6 +421,5 @@ public class Controlador {
     public boolean isHayLibros() {
         return hayLibros;
     }
-    
-    
+
 }

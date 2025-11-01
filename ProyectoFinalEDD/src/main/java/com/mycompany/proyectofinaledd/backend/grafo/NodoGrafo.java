@@ -5,7 +5,7 @@
 package com.mycompany.proyectofinaledd.backend.grafo;
 
 import com.mycompany.proyectofinaledd.backend.conexion.Conexion;
-import com.mycompany.proyectofinaledd.backend.listaenlazada.ListaEnlazada;
+import com.mycompany.proyectofinaledd.backend.listaenlazada.ListaEnlazadaDoble;
 
 /**
  *Representa un biblioteca
@@ -13,11 +13,11 @@ import com.mycompany.proyectofinaledd.backend.listaenlazada.ListaEnlazada;
  */
 public class NodoGrafo {
     private Biblioteca biblioteca;
-    private ListaEnlazada<Conexion> conexiones;
+    private ListaEnlazadaDoble<Conexion> conexiones;
 
     public NodoGrafo(Biblioteca biblioteca) {
         this.biblioteca = biblioteca;
-        this.conexiones = new ListaEnlazada<>();//Lista de conexiones salientes
+        this.conexiones = new ListaEnlazadaDoble<>();//Lista de conexiones salientes
     }
 
     public Biblioteca getBiblioteca() {
@@ -28,11 +28,11 @@ public class NodoGrafo {
         this.biblioteca = biblioteca;
     }
 
-    public ListaEnlazada<Conexion> getConexiones() {
+    public ListaEnlazadaDoble<Conexion> getConexiones() {
         return conexiones;
     }
 
-    public void setConexiones(ListaEnlazada<Conexion> conexiones) {
+    public void setConexiones(ListaEnlazadaDoble<Conexion> conexiones) {
         this.conexiones = conexiones;
     }
     

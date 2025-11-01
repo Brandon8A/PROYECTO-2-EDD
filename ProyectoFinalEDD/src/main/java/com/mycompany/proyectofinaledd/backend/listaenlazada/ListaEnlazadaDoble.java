@@ -8,22 +8,23 @@ package com.mycompany.proyectofinaledd.backend.listaenlazada;
  *
  * @author brandon
  */
-public class ListaEnlazada<T> {
+public class ListaEnlazadaDoble<T> {
 
-    private NodoListaEnlazada<T> inicio;
-    private NodoListaEnlazada<T> fin;
-    private int tamanio;
+    private NodoListaEnlazadaDoble<T> inicio;
+    private NodoListaEnlazadaDoble<T> fin;
+    private int tamanio = 0;
     
     /**
      * Metodo que almacena valores al final de la lista
      * @param nuevoValor valor a ingresar a la lista
      */
     public void agregarValorAlFinal(T nuevoValor){
-        NodoListaEnlazada<T> nuevo = new NodoListaEnlazada<>(nuevoValor);
+        NodoListaEnlazadaDoble<T> nuevo = new NodoListaEnlazadaDoble<>(nuevoValor, tamanio);
         if (inicio == null) {
             inicio = nuevo;
             fin = nuevo;
         } else {
+            nuevo.setAnterior(fin);
             fin.setSiguiente(nuevo);
             fin = nuevo;
         }
@@ -40,8 +41,10 @@ public class ListaEnlazada<T> {
         }
         T dato = inicio.getDato();
         inicio = inicio.getSiguiente();
-        if (inicio == null) {
-            this.fin = null;
+        if (inicio != null) {
+            inicio.setAnterior(null);
+        } else {
+            fin = null;
         }
         this.tamanio--;
         return dato;
@@ -49,26 +52,51 @@ public class ListaEnlazada<T> {
     
     public void eliminarLista(){
         this.inicio = null;
+        this.fin = null;
         this.tamanio = 0;
+    }
+    
+    // Elimina un elemento específico
+    public boolean eliminarValor(T dato) {
+        NodoListaEnlazadaDoble<T> actual = inicio;
+        while (actual != null) {
+            if (actual.getDato().equals(dato)) {
+                if (actual.getAnterior() != null) {
+                    actual.getAnterior().setSiguiente(actual.getSiguiente());
+                } else {
+                    inicio = actual.getSiguiente();
+                }
+
+                if (actual.getSiguiente() != null) {
+                    actual.getSiguiente().setAnterior(actual.getAnterior());
+                } else {
+                    fin = actual.getAnterior();
+                }
+                tamanio--;
+                return true;
+            }
+            actual = actual.getSiguiente();
+        }
+        return false;
     }
     
     public boolean estaVacia(){
         return inicio == null;
     }
     
-    public NodoListaEnlazada<T> getInicio() {
+    public NodoListaEnlazadaDoble<T> getInicio() {
         return inicio;
     }
 
-    public void setInicio(NodoListaEnlazada<T> inicio) {
+    public void setInicio(NodoListaEnlazadaDoble<T> inicio) {
         this.inicio = inicio;
     }
 
-    public NodoListaEnlazada<T> getFin() {
+    public NodoListaEnlazadaDoble<T> getFin() {
         return fin;
     }
 
-    public void setFin(NodoListaEnlazada<T> fin) {
+    public void setFin(NodoListaEnlazadaDoble<T> fin) {
         this.fin = fin;
     }
 
