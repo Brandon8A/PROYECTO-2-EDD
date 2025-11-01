@@ -64,7 +64,4 @@ public class NodoAVL{
     public void setFactorEquilibrio(int factorEquilibrio) {
         this.factorEquilibrio = factorEquilibrio;
     }
-    
-    
-    
 }

@@ -4,6 +4,7 @@
  */
 package com.mycompany.proyectofinaledd.backend;
 
+import com.mycompany.proyectofinaledd.backend.arboles.arbolAVL.ArbolAVL;
 import com.mycompany.proyectofinaledd.backend.conexion.Conexion;
 import com.mycompany.proyectofinaledd.backend.exception.ExceptionBibliotecaMagica;
 import com.mycompany.proyectofinaledd.backend.grafo.Biblioteca;
@@ -41,6 +42,7 @@ public class Controlador {
     private int tamanioMatrizAdyacencia;
     private int matrizAdyacenciaTiempos[][];
     private double matrizAdyacenciaCostos[][];
+    private ArbolAVL arbolAVL;
 
     public Controlador() {
         this.bibliotecas = new ListaEnlazadaDoble<>();
@@ -48,8 +50,16 @@ public class Controlador {
         this.conexiones = new ListaEnlazadaDoble<>();
         this.erroresCargaArchivos = new ListaEnlazadaDoble<>();
         this.grafoBibliotecas = new GrafoBiblioteca();
+        this.arbolAVL = new ArbolAVL();
     }
 
+    /**
+     * Funcion encargada de poder recolectar un archivo con extension .csv
+     *
+     * @return retorna el archivo seleccionado por el usuario
+     * @throws ExceptionBibliotecaMagica lanza excepcion por algun error de
+     * archivo
+     */
     private File archivoCSV() throws ExceptionBibliotecaMagica {
         this.fileChooser = new FileChooser();
         String pathSCV = this.fileChooser.seleccionarArchivoCSV();
@@ -71,7 +81,7 @@ public class Controlador {
      */
     public void cargarLibros() {
         this.erroresCargaArchivos.eliminarLista();
-        
+
         try {
             File archivo = this.archivoCSV();
 
@@ -90,12 +100,12 @@ public class Controlador {
                     String[] datos = linea.split(",");
                     if (datos.length < 9) {
                         System.out.println("⚠Línea ignorada (formato incorrecto): " + linea);
-                        this.erroresCargaArchivos.agregarValorAlFinal("Línea ["+ numeroLinea +"] ignorada (formato incorrecto): " + linea);
+                        this.erroresCargaArchivos.agregarValorAlFinal("Línea [" + numeroLinea + "] ignorada (formato incorrecto): " + linea);
                         continue;
                     }
-                    
-                    if (this.validarISBN(datos[1], datos[0])) {
-                        this.erroresCargaArchivos.agregarValorAlFinal("Línea ["+ numeroLinea +"] ignorada (ISBN incorrecto): " + linea);
+
+                    if (!this.ISBNValido(datos[1], datos[0])) {
+                        this.erroresCargaArchivos.agregarValorAlFinal("Línea [" + numeroLinea + "] ignorada (ISBN incorrecto): " + linea);
                         continue;
                     }
 
@@ -125,18 +135,18 @@ public class Controlador {
                         }
 
                         // Buscar bibliotecas de origen y destino en el grafo
-                        Biblioteca bibliotecaOrigen = grafoBibliotecas.getBiblioteca(idOrigen);
-                        Biblioteca bibliotecaDestino = grafoBibliotecas.getBiblioteca(idDestino);
+                        Biblioteca bibliotecaOrigen = grafoBibliotecas.getBibliotecaPorId(idOrigen);
+                        Biblioteca bibliotecaDestino = grafoBibliotecas.getBibliotecaPorId(idDestino);
 
                         if (bibliotecaOrigen == null) {
                             System.out.println("⚠No se encontró biblioteca de origen: " + idOrigen);
-                            this.erroresCargaArchivos.agregarValorAlFinal("Error en linea ["+ numeroLinea +"] no se encontró biblioteca de origen: " + idOrigen);
+                            this.erroresCargaArchivos.agregarValorAlFinal("Error en linea [" + numeroLinea + "] no se encontró biblioteca de origen: " + idOrigen);
                             continue;
                         }
 
                         if (bibliotecaDestino == null) {
                             System.out.println("⚠No se encontró biblioteca de destino: " + idDestino);
-                            this.erroresCargaArchivos.agregarValorAlFinal("Error en linea ["+ numeroLinea +"] no se encontró biblioteca de destino: " + idDestino);
+                            this.erroresCargaArchivos.agregarValorAlFinal("Error en linea [" + numeroLinea + "] no se encontró biblioteca de destino: " + idDestino);
                             continue;
                         }
 
@@ -153,6 +163,7 @@ public class Controlador {
 
                         // Agregar a la lista de libros global
                         this.libros.agregarValorAlFinal(libro);
+                        this.arbolAVL.setRaiz(this.arbolAVL.insertarNodo(this.arbolAVL.getRaiz(), libro));
 
                     } catch (Exception e) {
                         System.out.println("⚠ Error procesando línea " + numeroLinea + ": " + e.getMessage());
@@ -163,7 +174,11 @@ public class Controlador {
                 JOptionPane.showMessageDialog(null,
                         "Se cargaron " + libros.getTamanio() + " libros con éxito.",
                         "Éxito", JOptionPane.INFORMATION_MESSAGE);
-
+                if (libros.getTamanio() != 0) {
+                    DialogErrorLineas errorLineas = new DialogErrorLineas(null, true, erroresCargaArchivos);
+                    errorLineas.setLocationRelativeTo(null);
+                    errorLineas.setVisible(true);
+                }
             } catch (IOException e) {
                 throw new ExceptionBibliotecaMagica("Error al leer el archivo de libros: " + e.getMessage());
             }
@@ -181,7 +196,7 @@ public class Controlador {
      * @param titulo titulo del libro a comparar
      * @return retorna verdadero si el isbn es valido o falso si es invalido
      */
-    private boolean validarISBN(String isbn, String titulo) {
+    private boolean ISBNValido(String isbn, String titulo) {
         NodoListaEnlazadaDoble<Libro> actual = this.libros.getInicio();
         while (actual != null) {
             Libro existente = actual.getDato();
@@ -189,12 +204,6 @@ public class Controlador {
                 // ISBN ya existe, verificar título
                 if (!existente.getTitulo().equalsIgnoreCase(titulo)) {
                     // ISBN duplicado con otro título → error
-                    /*
-                    JOptionPane.showMessageDialog(null,
-                            "Error: El ISBN " + isbn + " ya está registrado para otro libro: "
-                            + existente.getTitulo(),
-                            "ISBN duplicado", JOptionPane.ERROR_MESSAGE);
-                     */
                     return false;
                 }
             }
@@ -303,7 +312,7 @@ public class Controlador {
     public void cargarConexiones() throws ExceptionBibliotecaMagica {
         File archivo = archivoCSV();//Archivo csv seleccionado 
         this.erroresCargaArchivos.eliminarLista();
-        
+
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             String linea;
             int numeroLinea = 0;
@@ -319,7 +328,7 @@ public class Controlador {
                 String[] datos = linea.split(",");
                 if (datos.length < 4) {
                     System.out.println("⚠Línea ignorada (formato incorrecto): " + linea);
-                    this.erroresCargaArchivos.agregarValorAlFinal("Línea ["+ numeroLinea +"] ignorada (formato incorrecto): " + linea);
+                    this.erroresCargaArchivos.agregarValorAlFinal("Línea [" + numeroLinea + "] ignorada (formato incorrecto): " + linea);
                     continue;
                 }
 
@@ -366,10 +375,10 @@ public class Controlador {
         } catch (IOException e) {
             throw new ExceptionBibliotecaMagica("Error al leer el archivo de conexiones: " + e.getMessage());
         }
-        
+
         grafoBibliotecas.mostrarCaminosOptimos("Almacen principal", false);
     }
-    
+
     public Inicio getInicio() {
         return inicio;
     }

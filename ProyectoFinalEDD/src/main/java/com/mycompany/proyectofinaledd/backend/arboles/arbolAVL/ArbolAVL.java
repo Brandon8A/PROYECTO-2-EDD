@@ -204,4 +204,14 @@ public class ArbolAVL {
 
         return b;
     }
+
+    public NodoAVL getRaiz() {
+        return raiz;
+    }
+
+    public void setRaiz(NodoAVL raiz) {
+        this.raiz = raiz;
+    }
+    
+    
 }

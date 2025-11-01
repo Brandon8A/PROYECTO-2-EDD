@@ -30,6 +30,9 @@ public class Biblioteca {
         this.ubicacion = ubicacion;
         this.tiempoIngreso = tiempoIngreso;
         this.tiempoPreparacion = tiempoPreparacion;
+        this.colaIngreso = new ListaEnlazadaDoble<>();
+        this.colaSalida = new ListaEnlazadaDoble<>();
+        this.colaTraspaso = new ListaEnlazadaDoble<>();
     }
     
     public Biblioteca(String id, String nombre, String ubicacion, int tiempoIngreso, int tiempoTraspaso, int intervaloDespacho) {
@@ -39,6 +42,9 @@ public class Biblioteca {
         this.tiempoIngreso = tiempoIngreso;
         this.tiempoTraspaso = tiempoTraspaso;
         this.intervaloDespacho = intervaloDespacho;
+        this.colaIngreso = new ListaEnlazadaDoble<>();
+        this.colaSalida = new ListaEnlazadaDoble<>();
+        this.colaTraspaso = new ListaEnlazadaDoble<>();
     }
 
     public String getNombre() {
