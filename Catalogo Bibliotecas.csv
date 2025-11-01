@@ -1,0 +1,6 @@
+id,nombre,ubicación,t_ingreso,t_traspaso,distpachInterval
+A-101,Almacen principal,Madrid,28800,45000,3600
+B-205,Centro de Distribucion,Barcelon,34200,50400,1800
+C-309,Plataforma logistica sur,Valencia,39600,60300,2700
+D-412,Deposito temporal,Sevilla,27900,40500,5400
+A-101,Almacen principal,Madrid,28800,45000,3600

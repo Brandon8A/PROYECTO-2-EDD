@@ -1,0 +1,5 @@
+Titulo,ISBN,genero,Año ,Autor ,Estado,id_bibliotecaOrigen,ID_BibliotecaDestino,Prioridad
+Cien años de soleda,978-037474728,Realismo Magico,1967,Gabriel Garcia Marquez,disponible,A-101,B-205,tiempo
+1984,978-0451524935,Ciencia Ficcion/Distopia,1949,Geroge owell,En transito,A-101,B-205,costo
+Orgullo y prejuicio,978-0141439518,Novela romantica,1813,Jane Austen,Agotado,A-101,C-309,tiempo
+El codigo da vinci,978-0307474278,Thriller/Misterio,2003,Dan Brown,Prestado,C-309,B-205,costo
