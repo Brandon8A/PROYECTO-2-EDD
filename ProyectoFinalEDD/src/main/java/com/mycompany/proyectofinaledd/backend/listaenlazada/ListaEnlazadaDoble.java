@@ -13,12 +13,13 @@ public class ListaEnlazadaDoble<T> {
     private NodoListaEnlazadaDoble<T> inicio;
     private NodoListaEnlazadaDoble<T> fin;
     private int tamanio = 0;
-    
+
     /**
      * Metodo que almacena valores al final de la lista
+     *
      * @param nuevoValor valor a ingresar a la lista
      */
-    public void agregarValorAlFinal(T nuevoValor){
+    public void agregarValorAlFinal(T nuevoValor) {
         NodoListaEnlazadaDoble<T> nuevo = new NodoListaEnlazadaDoble<>(nuevoValor, tamanio);
         if (inicio == null) {
             inicio = nuevo;
@@ -33,9 +34,10 @@ public class ListaEnlazadaDoble<T> {
 
     /**
      * Funcion que se encarga de quitar elementos de enfrente FIFO
+     *
      * @return returna el valor de enfrente de la lista
      */
-    public T quitarElementoEnfrente(){
+    public T quitarElementoEnfrente() {
         if (estaVacia()) {
             return null;
         }
@@ -49,13 +51,13 @@ public class ListaEnlazadaDoble<T> {
         this.tamanio--;
         return dato;
     }
-    
-    public void eliminarLista(){
+
+    public void eliminarLista() {
         this.inicio = null;
         this.fin = null;
         this.tamanio = 0;
     }
-    
+
     // Elimina un elemento específico
     public boolean eliminarValor(T dato) {
         NodoListaEnlazadaDoble<T> actual = inicio;
@@ -79,11 +81,26 @@ public class ListaEnlazadaDoble<T> {
         }
         return false;
     }
-    
-    public boolean estaVacia(){
+
+    public T eliminarInicio() {
+        if (inicio == null) {
+            return null; // o lanzar excepción si prefieres
+        }
+        T datoEliminado = inicio.getDato();
+        inicio = inicio.getSiguiente();
+        if (inicio != null) {
+            inicio.setAnterior(null);
+        } else {
+            fin = null; // si la lista queda vacía
+        }
+        tamanio--;
+        return datoEliminado;
+    }
+
+    public boolean estaVacia() {
         return inicio == null;
     }
-    
+
     public NodoListaEnlazadaDoble<T> getInicio() {
         return inicio;
     }

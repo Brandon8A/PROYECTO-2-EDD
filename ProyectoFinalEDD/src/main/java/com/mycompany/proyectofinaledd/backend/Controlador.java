@@ -20,11 +20,13 @@ import com.mycompany.proyectofinaledd.backend.tablahash.TablaHashLibros;
 import com.mycompany.proyectofinaledd.frontend.error.DialogErrorLineas;
 import com.mycompany.proyectofinaledd.frontend.filechooser.FileChooser;
 import com.mycompany.proyectofinaledd.frontend.inicio.Inicio;
+import com.mycompany.proyectofinaledd.pruebas.VentanaSimulacion;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -42,9 +44,9 @@ public class Controlador {
     private ListaEnlazadaDoble<Libro> libros;
     private ListaEnlazadaDoble<Biblioteca> bibliotecas;
     private ListaEnlazadaDoble<Conexion> conexiones;
-    private int tamanioMatrizAdyacencia;
     private int matrizAdyacenciaTiempos[][];
     private double matrizAdyacenciaCostos[][];
+    private int tamanioMatrizAdyacencia;
     private ArbolAVL arbolAVL;
     private ArbolB arbolB;
     private ArbolBMas arbolBMas;
@@ -55,7 +57,7 @@ public class Controlador {
         this.libros = new ListaEnlazadaDoble<>();
         this.conexiones = new ListaEnlazadaDoble<>();
         this.erroresCargaArchivos = new ListaEnlazadaDoble<>();
-        this.grafoBibliotecas = new GrafoBiblioteca();
+        this.grafoBibliotecas = new GrafoBiblioteca(this);
         this.arbolAVL = new ArbolAVL();
         this.arbolB = new ArbolB(3);
         this.arbolBMas = new ArbolBMas(3);
@@ -170,12 +172,13 @@ public class Controlador {
                         // Colocar libro en la cola de ingreso de la biblioteca de origen
                         bibliotecaOrigen.getColaIngreso().agregarValorAlFinal(libro);
 
-                        // Agregar a la lista de libros global
+                        /*
                         this.libros.agregarValorAlFinal(libro);
                         this.arbolAVL.insertar(libro);
                         this.arbolB.insert(libro);
                         this.arbolBMas.insertar(libro);
                         this.tablaHashLibros.insertar(libro);
+                         */
                     } catch (Exception e) {
                         System.out.println("⚠ Error procesando línea " + numeroLinea + ": " + e.getMessage());
                     }
@@ -197,6 +200,14 @@ public class Controlador {
         } catch (ExceptionBibliotecaMagica e) {
             JOptionPane.showMessageDialog(this.inicio, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+        
+        SwingUtilities.invokeLater(() -> new VentanaSimulacion(this).setVisible(true));
+        
+        /*
+        SwingUtilities.invokeLater(() -> {
+            new VentanaGrafoDemo(this).setVisible(true);
+        });
+        */
     }
 
     /**
@@ -282,8 +293,6 @@ public class Controlador {
                     "Se cargaron un total de: " + bibliotecas.getTamanio() + " bibliotecas con éxito!",
                     "Éxito", JOptionPane.INFORMATION_MESSAGE);
             this.tamanioMatrizAdyacencia = this.bibliotecas.getTamanio();
-            this.matrizAdyacenciaTiempos = new int[this.tamanioMatrizAdyacencia][this.tamanioMatrizAdyacencia];
-            this.matrizAdyacenciaCostos = new double[this.tamanioMatrizAdyacencia][this.tamanioMatrizAdyacencia];
             if (erroresCargaArchivos.getTamanio() != 0) {
                 DialogErrorLineas errores = new DialogErrorLineas(null, true, erroresCargaArchivos);
                 errores.setLocationRelativeTo(null);
@@ -373,6 +382,22 @@ public class Controlador {
                 }
             }
             grafoBibliotecas.agregarConexion(this.conexiones);
+
+            System.out.println("\n\nMatriz de tiempos: ");
+            this.imprimirMatriz(this.grafoBibliotecas.getMatrizTiempos());
+            System.out.println("\n\nMatriz de tiempos: ");
+            this.imprimirMatrizDouble(this.grafoBibliotecas.getMatrizCostos());
+
+            System.out.println("\n💰Ruta mas rapida de A a D");
+            ListaEnlazadaDoble<Biblioteca> rutaTiempo = grafoBibliotecas.dijkstra("A-101", "D-412", true);
+            mostrarRuta(rutaTiempo);
+            System.out.println("Tiempo total: " + grafoBibliotecas.calcularTotalRuta(rutaTiempo, true));
+
+            System.out.println("\n💰 Ruta más barata de B1 a B4 (prioridad costo):");
+            ListaEnlazadaDoble<Biblioteca> rutaCosto = grafoBibliotecas.dijkstra("A-101", "D-412", false);
+            mostrarRuta(rutaCosto);
+            System.out.println("💵 Costo total: " + grafoBibliotecas.calcularTotalRuta(rutaCosto, false));
+
             System.out.println("✅ Carga completada: " + conexiones.getTamanio() + " conexiones agregadas al grafo.");
             JOptionPane.showMessageDialog(null,
                     "Se cargaron un total de: " + conexiones.getTamanio() + " conexiones con éxito!",
@@ -386,9 +411,43 @@ public class Controlador {
         } catch (IOException e) {
             throw new ExceptionBibliotecaMagica("Error al leer el archivo de conexiones: " + e.getMessage());
         }
-
-        grafoBibliotecas.mostrarCaminosOptimos("Almacen principal", false);
     }
+
+    //**************************************************************************
+    private static void imprimirMatriz(int[][] matriz) {
+        for (int[] fila : matriz) {
+            for (int val : fila) {
+                System.out.print((val == Integer.MAX_VALUE / 4 ? "∞" : val) + "\t");
+            }
+            System.out.println();
+        }
+    }
+
+    private static void imprimirMatrizDouble(double[][] matriz) {
+        for (double[] fila : matriz) {
+            for (double val : fila) {
+                System.out.print((val == Double.MAX_VALUE / 4.0 ? "∞" : val) + "\t");
+            }
+            System.out.println();
+        }
+    }
+
+    private static void mostrarRuta(ListaEnlazadaDoble<Biblioteca> ruta) {
+        if (ruta.getTamanio() == 0) {
+            System.out.println("⚠️ No hay ruta disponible.");
+            return;
+        }
+        NodoListaEnlazadaDoble<Biblioteca> actual = ruta.getInicio();
+        while (actual != null) {
+            System.out.print(actual.getDato().getId());
+            if (actual.getSiguiente() != null) {
+                System.out.print(" ➡ ");
+            }
+            actual = actual.getSiguiente();
+        }
+        System.out.println();
+    }
+    //**************************************************************************
 
     public Inicio getInicio() {
         return inicio;
@@ -473,6 +532,21 @@ public class Controlador {
     public void setTablaHashLibros(TablaHashLibros tablaHashLibros) {
         this.tablaHashLibros = tablaHashLibros;
     }
-    
-    
+
+    public int[][] getMatrizAdyacenciaTiempos() {
+        return matrizAdyacenciaTiempos;
+    }
+
+    public void setMatrizAdyacenciaTiempos(int[][] matrizAdyacenciaTiempos) {
+        this.matrizAdyacenciaTiempos = matrizAdyacenciaTiempos;
+    }
+
+    public double[][] getMatrizAdyacenciaCostos() {
+        return matrizAdyacenciaCostos;
+    }
+
+    public void setMatrizAdyacenciaCostos(double[][] matrizAdyacenciaCostos) {
+        this.matrizAdyacenciaCostos = matrizAdyacenciaCostos;
+    }
+
 }
