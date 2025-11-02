@@ -5,6 +5,7 @@
 package com.mycompany.proyectofinaledd.backend;
 
 import com.mycompany.proyectofinaledd.backend.arboles.arbolAVL.ArbolAVL;
+import com.mycompany.proyectofinaledd.backend.arboles.arbolBPrueba.ArbolB;
 import com.mycompany.proyectofinaledd.backend.conexion.Conexion;
 import com.mycompany.proyectofinaledd.backend.exception.ExceptionBibliotecaMagica;
 import com.mycompany.proyectofinaledd.backend.grafo.Biblioteca;
@@ -43,6 +44,7 @@ public class Controlador {
     private int matrizAdyacenciaTiempos[][];
     private double matrizAdyacenciaCostos[][];
     private ArbolAVL arbolAVL;
+    private ArbolB arbolB;
 
     public Controlador() {
         this.bibliotecas = new ListaEnlazadaDoble<>();
@@ -51,6 +53,7 @@ public class Controlador {
         this.erroresCargaArchivos = new ListaEnlazadaDoble<>();
         this.grafoBibliotecas = new GrafoBiblioteca();
         this.arbolAVL = new ArbolAVL();
+        this.arbolB = new ArbolB(3);
     }
 
     /**
@@ -164,7 +167,7 @@ public class Controlador {
                         // Agregar a la lista de libros global
                         this.libros.agregarValorAlFinal(libro);
                         this.arbolAVL.setRaiz(this.arbolAVL.insertarNodo(this.arbolAVL.getRaiz(), libro));
-
+                        this.arbolB.insertar(libro.getAnio(), libro);
                     } catch (Exception e) {
                         System.out.println("⚠ Error procesando línea " + numeroLinea + ": " + e.getMessage());
                     }
@@ -431,4 +434,21 @@ public class Controlador {
         return hayLibros;
     }
 
+    public ArbolAVL getArbolAVL() {
+        return arbolAVL;
+    }
+
+    public void setArbolAVL(ArbolAVL arbolAVL) {
+        this.arbolAVL = arbolAVL;
+    }
+
+    public ArbolB getArbolB() {
+        return arbolB;
+    }
+
+    public void setArbolB(ArbolB arbolB) {
+        this.arbolB = arbolB;
+    }
+
+    
 }

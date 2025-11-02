@@ -8,6 +8,6 @@ package com.mycompany.proyectofinaledd.backend.arboles.arbolB;
  *
  * @author brandon-ochoa
  */
-public class ArbolB {
+public class NodoArbolB {
     
 }

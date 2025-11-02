@@ -87,7 +87,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jButton6" alignment="1" max="32767" attributes="0"/>
-                              <Component id="jButton9" alignment="1" max="32767" attributes="0"/>
+                              <Component id="btnGraficarEstructuras" alignment="1" max="32767" attributes="0"/>
                               <Component id="btnCargarArchivoLibros" min="-2" pref="226" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -119,7 +119,7 @@
                           <Component id="jButton7" alignment="3" min="-2" pref="57" max="-2" attributes="0"/>
                           <Component id="jButton8" alignment="3" min="-2" pref="57" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jButton9" max="32767" attributes="0"/>
+                      <Component id="btnGraficarEstructuras" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -196,10 +196,13 @@
             <Property name="text" type="java.lang.String" value="BIBLIOTECA M&#xc1;GICA"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton9">
+        <Component class="javax.swing.JButton" name="btnGraficarEstructuras">
           <Properties>
             <Property name="text" type="java.lang.String" value="Graficar Estructuras"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGraficarEstructurasActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnCargarArchivoLibros">
           <Properties>
