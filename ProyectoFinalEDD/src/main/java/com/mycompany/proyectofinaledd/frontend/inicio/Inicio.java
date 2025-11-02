@@ -257,7 +257,10 @@ public class Inicio extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No se pueden generar las graficas aún", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        a
+        this.controlador.getArbolAVL().generarImagen("ArbolAVL");
+        this.controlador.getArbolB().generarImagen("ArbolB");
+        this.controlador.getArbolBMas().generarImagen("ArbolBMas", "ArbolBMas");
+        this.controlador.getTablaHashLibros().generarImagen("TablaHash", "TablaHash");
     }//GEN-LAST:event_btnGraficarEstructurasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

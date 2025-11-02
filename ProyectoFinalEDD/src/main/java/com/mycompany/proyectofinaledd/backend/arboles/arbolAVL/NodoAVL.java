@@ -10,27 +10,37 @@ import com.mycompany.proyectofinaledd.backend.libro.Libro;
  *
  * @author brandon
  */
-public class NodoAVL{
+public class NodoAVL {
 
     private Libro libro;
+    private NodoAVL izquierda;
+    private NodoAVL derecha;
     private int altura;
-    private NodoAVL nodoIzquierdo;
-    private NodoAVL nodoDerecho;
     private int factorEquilibrio;
-    
+
     public NodoAVL(Libro libro) {
         this.libro = libro;
-        this.altura = 1;
-        this.nodoIzquierdo = null;
-        this.nodoDerecho = null;
+        this.altura = 1; // nuevo nodo → altura = 1
     }
 
     public Libro getLibro() {
         return libro;
     }
 
-    public void setLibro(Libro libro) {
-        this.libro = libro;
+    public NodoAVL getIzquierda() {
+        return izquierda;
+    }
+
+    public void setIzquierda(NodoAVL izquierda) {
+        this.izquierda = izquierda;
+    }
+
+    public NodoAVL getDerecha() {
+        return derecha;
+    }
+
+    public void setDerecha(NodoAVL derecha) {
+        this.derecha = derecha;
     }
 
     public int getAltura() {
@@ -39,22 +49,6 @@ public class NodoAVL{
 
     public void setAltura(int altura) {
         this.altura = altura;
-    }
-
-    public NodoAVL getNodoIzquierdo() {
-        return nodoIzquierdo;
-    }
-
-    public void setNodoIzquierdo(NodoAVL nodoIzquierdo) {
-        this.nodoIzquierdo = nodoIzquierdo;
-    }
-
-    public NodoAVL getNodoDerecho() {
-        return nodoDerecho;
-    }
-
-    public void setNodoDerecho(NodoAVL nodoDerecho) {
-        this.nodoDerecho = nodoDerecho;
     }
 
     public int getFactorEquilibrio() {

@@ -1,0 +1,10 @@
+digraph BTree {
+  node [shape=record];
+  node68784368 [label="com.mycompany.proyectofinaledd.backend.libro.Libro@4ddf3caf | com.mycompany.proyectofinaledd.backend.libro.Libro@4c863b45"];
+  node68784368 -> node383489452;
+  node383489452 [label="com.mycompany.proyectofinaledd.backend.libro.Libro@5e8d0997 | com.mycompany.proyectofinaledd.backend.libro.Libro@6a037cad | com.mycompany.proyectofinaledd.backend.libro.Libro@17222ebb"];
+  node68784368 -> node1562296070;
+  node1562296070 [label="com.mycompany.proyectofinaledd.backend.libro.Libro@6be9d483 | com.mycompany.proyectofinaledd.backend.libro.Libro@1afe3b47"];
+  node68784368 -> node472881493;
+  node472881493 [label="com.mycompany.proyectofinaledd.backend.libro.Libro@34e1e359 | com.mycompany.proyectofinaledd.backend.libro.Libro@1109748a | com.mycompany.proyectofinaledd.backend.libro.Libro@7ac651ef | com.mycompany.proyectofinaledd.backend.libro.Libro@1ac39ad3 | com.mycompany.proyectofinaledd.backend.libro.Libro@218349f9"];
+}

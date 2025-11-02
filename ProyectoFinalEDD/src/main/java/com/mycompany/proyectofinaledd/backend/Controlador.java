@@ -5,7 +5,8 @@
 package com.mycompany.proyectofinaledd.backend;
 
 import com.mycompany.proyectofinaledd.backend.arboles.arbolAVL.ArbolAVL;
-import com.mycompany.proyectofinaledd.backend.arboles.arbolBPrueba.ArbolB;
+import com.mycompany.proyectofinaledd.backend.arboles.arbolB.ArbolB;
+import com.mycompany.proyectofinaledd.backend.arboles.arbolBMas.ArbolBMas;
 import com.mycompany.proyectofinaledd.backend.conexion.Conexion;
 import com.mycompany.proyectofinaledd.backend.exception.ExceptionBibliotecaMagica;
 import com.mycompany.proyectofinaledd.backend.grafo.Biblioteca;
@@ -15,6 +16,7 @@ import com.mycompany.proyectofinaledd.backend.libro.Libro;
 import com.mycompany.proyectofinaledd.backend.libro.TypeEstado;
 import com.mycompany.proyectofinaledd.backend.listaenlazada.ListaEnlazadaDoble;
 import com.mycompany.proyectofinaledd.backend.listaenlazada.NodoListaEnlazadaDoble;
+import com.mycompany.proyectofinaledd.backend.tablahash.TablaHashLibros;
 import com.mycompany.proyectofinaledd.frontend.error.DialogErrorLineas;
 import com.mycompany.proyectofinaledd.frontend.filechooser.FileChooser;
 import com.mycompany.proyectofinaledd.frontend.inicio.Inicio;
@@ -45,6 +47,8 @@ public class Controlador {
     private double matrizAdyacenciaCostos[][];
     private ArbolAVL arbolAVL;
     private ArbolB arbolB;
+    private ArbolBMas arbolBMas;
+    private TablaHashLibros tablaHashLibros;
 
     public Controlador() {
         this.bibliotecas = new ListaEnlazadaDoble<>();
@@ -54,6 +58,8 @@ public class Controlador {
         this.grafoBibliotecas = new GrafoBiblioteca();
         this.arbolAVL = new ArbolAVL();
         this.arbolB = new ArbolB(3);
+        this.arbolBMas = new ArbolBMas(3);
+        this.tablaHashLibros = new TablaHashLibros(10);
     }
 
     /**
@@ -166,8 +172,10 @@ public class Controlador {
 
                         // Agregar a la lista de libros global
                         this.libros.agregarValorAlFinal(libro);
-                        this.arbolAVL.setRaiz(this.arbolAVL.insertarNodo(this.arbolAVL.getRaiz(), libro));
-                        this.arbolB.insertar(libro.getAnio(), libro);
+                        this.arbolAVL.insertar(libro);
+                        this.arbolB.insert(libro);
+                        this.arbolBMas.insertar(libro);
+                        this.tablaHashLibros.insertar(libro);
                     } catch (Exception e) {
                         System.out.println("⚠ Error procesando línea " + numeroLinea + ": " + e.getMessage());
                     }
@@ -177,7 +185,7 @@ public class Controlador {
                 JOptionPane.showMessageDialog(null,
                         "Se cargaron " + libros.getTamanio() + " libros con éxito.",
                         "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                if (libros.getTamanio() != 0) {
+                if (erroresCargaArchivos.getTamanio() != 0) {
                     DialogErrorLineas errorLineas = new DialogErrorLineas(null, true, erroresCargaArchivos);
                     errorLineas.setLocationRelativeTo(null);
                     errorLineas.setVisible(true);
@@ -450,5 +458,21 @@ public class Controlador {
         this.arbolB = arbolB;
     }
 
+    public ArbolBMas getArbolBMas() {
+        return arbolBMas;
+    }
+
+    public void setArbolBMas(ArbolBMas arbolBMas) {
+        this.arbolBMas = arbolBMas;
+    }
+
+    public TablaHashLibros getTablaHashLibros() {
+        return tablaHashLibros;
+    }
+
+    public void setTablaHashLibros(TablaHashLibros tablaHashLibros) {
+        this.tablaHashLibros = tablaHashLibros;
+    }
+    
     
 }
