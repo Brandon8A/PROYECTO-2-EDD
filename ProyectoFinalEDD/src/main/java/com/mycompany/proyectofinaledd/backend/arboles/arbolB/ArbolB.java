@@ -60,18 +60,17 @@ public class ArbolB {
         }
     }
 
-    // ---- Generar imagen del árbol B ----
-    public void generarImagen(String nombreImagen) {
+    public void generarImagen(String nombreImagen, String carpetaDestino) {
         try {
-            // Crear carpeta de salida si no existe
-            File carpeta = new File("imagenes");
+            // Crear carpeta si no existe
+            File carpeta = new File(carpetaDestino);
             if (!carpeta.exists()) {
                 carpeta.mkdirs();
             }
 
-            // Ruta base
-            String rutaDot = "imagenes/" + nombreImagen + ".dot";
-            String rutaPng = "imagenes/" + nombreImagen + ".png";
+            // Rutas completas
+            String rutaDot = carpetaDestino + "/" + nombreImagen + ".dot";
+            String rutaPng = carpetaDestino + "/" + nombreImagen + ".png";
 
             // Crear archivo DOT
             try (PrintWriter out = new PrintWriter(rutaDot)) {
@@ -83,14 +82,14 @@ public class ArbolB {
                 out.println("}");
             }
 
-            // Ejecutar Graphviz (si está instalado)
+            // Ejecutar Graphviz
             ProcessBuilder pb = new ProcessBuilder("dot", "-Tpng", rutaDot, "-o", rutaPng);
             pb.start();
 
-            System.out.println("✅ Imagen del árbol generada: " + rutaPng);
+            System.out.println("✅ Imagen del árbol B generada en: " + rutaPng);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("⚠ Error generando imagen del árbol B: " + e.getMessage());
         }
     }
 

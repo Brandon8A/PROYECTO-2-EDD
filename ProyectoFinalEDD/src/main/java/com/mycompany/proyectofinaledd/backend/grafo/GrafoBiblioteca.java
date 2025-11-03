@@ -59,7 +59,6 @@ public class GrafoBiblioteca {
     /**
      * Método que recibe la lista de conexiones (cargada por el Controlador) y
      * construye las matrices de adyacencia (tiempos y costos). También
-     * actualiza los arreglos en el controlador.
      */
     public void agregarConexion(ListaEnlazadaDoble<Conexion> listaConexiones) {
         // 1) Crear mapeo de índices para bibliotecas (basado en la lista de bibliotecas del controlador)
@@ -87,34 +86,27 @@ public class GrafoBiblioteca {
         // 2) Recorrer la lista de conexiones y poblar matrices
         NodoListaEnlazadaDoble<Conexion> nodoCon = listaConexiones.getInicio();
         while (nodoCon != null) {
-            Conexion c = nodoCon.getDato();
-            Biblioteca origen = c.getOrigen();
-            Biblioteca destino = c.getDestino();
+            Conexion conexionBibliotecas = nodoCon.getDato();
+            Biblioteca origen = conexionBibliotecas.getOrigen();
+            Biblioteca destino = conexionBibliotecas.getDestino();
 
             int idxOrigen = getIndicePorId(origen.getId());
             int idxDestino = getIndicePorId(destino.getId());
 
             if (idxOrigen == -1 || idxDestino == -1) {
-                // Podría registrarse en errores del controlador, pero por ahora se ignora la conexión inválida
                 nodoCon = nodoCon.getSiguiente();
                 continue;
             }
 
-            // Llenar matrices (se asume bidireccional; si es dirigido, quita la segunda asignación)
-            matrizTiempos[idxOrigen][idxDestino] = c.getPesoTiempo();
-            matrizCostos[idxOrigen][idxDestino] = c.getPesoCosto();
+            // Llenar matrices (bidireccional)
+            matrizTiempos[idxOrigen][idxDestino] = conexionBibliotecas.getPesoTiempo();
+            matrizCostos[idxOrigen][idxDestino] = conexionBibliotecas.getPesoCosto();
 
-            matrizTiempos[idxDestino][idxOrigen] = c.getPesoTiempo();
-            matrizCostos[idxDestino][idxOrigen] = c.getPesoCosto();
+            matrizTiempos[idxDestino][idxOrigen] = conexionBibliotecas.getPesoTiempo();
+            matrizCostos[idxDestino][idxOrigen] = conexionBibliotecas.getPesoCosto();
 
             nodoCon = nodoCon.getSiguiente();
         }
-        /*
-        // 3) Guardar matrices también en el controlador 
-        controlador.matrizAdyacenciaTiempos = this.matrizTiempos;
-        controlador.matrizAdyacenciaCostos = this.matrizCostos;
-        controlador.tamanioMatrizAdyacencia = this.tamanio;
-         */
     }
 
     private void imprimirConexiones() {
@@ -151,14 +143,14 @@ public class GrafoBiblioteca {
      */
     private int getIndicePorId(String id) {
         NodoListaEnlazadaDoble<Biblioteca> actual = controlador.getBibliotecas().getInicio();
-        int idx = 0;
+        int indice = 0;
         while (actual != null) {
             Biblioteca b = actual.getDato();
             if (b.getId().equalsIgnoreCase(id)) {
-                return idx;
+                return indice;
             }
             actual = actual.getSiguiente();
-            idx++;
+            indice++;
         }
         return -1;
     }

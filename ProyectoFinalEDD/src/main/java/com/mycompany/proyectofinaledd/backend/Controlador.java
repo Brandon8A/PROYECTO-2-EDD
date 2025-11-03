@@ -171,9 +171,8 @@ public class Controlador {
 
                         // Colocar libro en la cola de ingreso de la biblioteca de origen
                         bibliotecaOrigen.getColaIngreso().agregarValorAlFinal(libro);
-
-                        /*
                         this.libros.agregarValorAlFinal(libro);
+                        /*
                         this.arbolAVL.insertar(libro);
                         this.arbolB.insert(libro);
                         this.arbolBMas.insertar(libro);
@@ -200,14 +199,36 @@ public class Controlador {
         } catch (ExceptionBibliotecaMagica e) {
             JOptionPane.showMessageDialog(this.inicio, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-        SwingUtilities.invokeLater(() -> new VentanaSimulacion(this).setVisible(true));
-        
         /*
-        SwingUtilities.invokeLater(() -> {
-            new VentanaGrafoDemo(this).setVisible(true);
-        });
-        */
+        SwingUtilities.invokeLater(() -> new VentanaSimulacion(this).setVisible(true));
+         */
+        this.almacenarLibrosCargados();
+        NodoListaEnlazadaDoble<NodoGrafo> actualGrafo = this.grafoBibliotecas.getNodosGrafo().getInicio();
+        while (actualGrafo != null) {            
+            actualGrafo.getDato().getBiblioteca().generarImagenesEstructuras();
+            actualGrafo = actualGrafo.getSiguiente();
+        }
+    }
+
+    private void almacenarLibrosCargados() {
+        NodoListaEnlazadaDoble<Libro> actualLibro = this.libros.getInicio();
+        while (actualLibro != null) {
+            NodoListaEnlazadaDoble<NodoGrafo> actualNodoGrafo = this.grafoBibliotecas.getNodosGrafo().getInicio();
+            while (actualNodoGrafo != null) {                
+                //Condicional para verificar si la biblioteca origen del libro coincide con alguna de las del grafo
+                if (actualLibro.getDato().getBibliotecaDestino().getId().equals(actualNodoGrafo.getDato().getBiblioteca().getId())) {
+                    actualNodoGrafo.getDato().getBiblioteca().getArbolAVL().insertar(actualLibro.getDato());
+                    actualNodoGrafo.getDato().getBiblioteca().getArbolB().insert(actualLibro.getDato());
+                    actualNodoGrafo.getDato().getBiblioteca().getArbolBMas().insertar(actualLibro.getDato());
+                    actualNodoGrafo.getDato().getBiblioteca().getTablaHash().insertar(actualLibro.getDato());
+                    actualNodoGrafo.getDato().getBiblioteca().getListaEnlazada().agregarValorAlFinal(actualLibro.getDato());
+                    break;
+                }
+                actualNodoGrafo = actualNodoGrafo.getSiguiente();
+            }
+            actualLibro = actualLibro.getSiguiente();
+        }
+        
     }
 
     /**

@@ -107,9 +107,19 @@ public class ArbolAVL {
         return y;
     }
 
-    public void generarImagen(String nombreImagen) {
+    public void generarImagen(String nombreImagen, String carpetaDestino) {
         try {
-            String nombreDot = "arbolAVL.dot";
+            // Crear la carpeta si no existe
+            File dir = new File(carpetaDestino);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            // Archivos DOT y PNG con ruta completa
+            String nombreDot = carpetaDestino + "/" + nombreImagen + ".dot";
+            String rutaImagen = carpetaDestino + "/" + nombreImagen + ".png";
+
+            // Escribir el archivo DOT
             FileWriter writer = new FileWriter(nombreDot);
             writer.write("digraph AVL {\n");
             writer.write("node [shape=circle, style=filled, fillcolor=\"lightblue\", fontcolor=\"black\"];\n");
@@ -117,21 +127,14 @@ public class ArbolAVL {
             writer.write("}\n");
             writer.close();
 
-            // Carpeta donde se guardará la imagen
-            String carpeta = "imagenes/";
-            File dir = new File(carpeta);
-            if (!dir.exists()) {
-                dir.mkdirs();
-            }
-
-            String rutaImagen = carpeta + nombreImagen + ".png";
+            // Generar imagen PNG usando Graphviz
             String comando = "dot -Tpng " + nombreDot + " -o " + rutaImagen;
             Runtime.getRuntime().exec(comando);
 
-            System.out.println("✅Imagen del AVL generada en: " + rutaImagen);
+            System.out.println("✅ Imagen del árbol AVL generada en: " + rutaImagen);
 
         } catch (IOException e) {
-            System.out.println("⚠Error generando imagen: " + e.getMessage());
+            System.out.println("⚠ Error generando imagen del árbol AVL: " + e.getMessage());
         }
     }
 

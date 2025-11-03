@@ -4,8 +4,12 @@
  */
 package com.mycompany.proyectofinaledd.backend.grafo;
 
+import com.mycompany.proyectofinaledd.backend.arboles.arbolAVL.ArbolAVL;
+import com.mycompany.proyectofinaledd.backend.arboles.arbolB.ArbolB;
+import com.mycompany.proyectofinaledd.backend.arboles.arbolBMas.ArbolBMas;
 import com.mycompany.proyectofinaledd.backend.libro.Libro;
 import com.mycompany.proyectofinaledd.backend.listaenlazada.ListaEnlazadaDoble;
+import com.mycompany.proyectofinaledd.backend.tablahash.TablaHashLibros;
 
 /**
  *
@@ -20,6 +24,12 @@ public class Biblioteca {
     private int tiempoTraspaso;
     private int tiempoPreparacion;
     private int intervaloDespacho;
+    
+    private ArbolAVL arbolAVL;
+    private ArbolB arbolB;
+    private ArbolBMas arbolBMas;
+    private TablaHashLibros tablaHash;
+    private ListaEnlazadaDoble<Libro> listaEnlazada;
     
     private ListaEnlazadaDoble<Libro> colaIngreso;
     private ListaEnlazadaDoble<Libro> colaTraspaso;
@@ -45,8 +55,20 @@ public class Biblioteca {
         this.colaIngreso = new ListaEnlazadaDoble<>();
         this.colaSalida = new ListaEnlazadaDoble<>();
         this.colaTraspaso = new ListaEnlazadaDoble<>();
+        this.arbolAVL = new ArbolAVL();
+        this.arbolB = new ArbolB(3);
+        this.arbolBMas = new ArbolBMas(3);
+        this.tablaHash = new TablaHashLibros(149);
+        this.listaEnlazada = new ListaEnlazadaDoble<>();
     }
 
+    public void generarImagenesEstructuras(){
+        this.arbolAVL.generarImagen("ArbolAVL", "imagenes/biblioteca_"+ this.id);
+        this.arbolB.generarImagen("ArbolB", "imagenes/biblioteca_" + this.id);
+        this.arbolBMas.generarImagen("Arbol_B_Mas", "imagenes/biblioteca_" + this.id);
+        this.listaEnlazada.generarImagen("ListaEnlazada", "imagenes/biblioteca_"+ this.id);
+    }
+    
     public String getNombre() {
         return nombre;
     }
@@ -122,4 +144,46 @@ public class Biblioteca {
     public void setTiempoTraspaso(int tiempoTraspaso) {
         this.tiempoTraspaso = tiempoTraspaso;
     }
+
+    public ArbolAVL getArbolAVL() {
+        return arbolAVL;
+    }
+
+    public void setArbolAVL(ArbolAVL arbolAVL) {
+        this.arbolAVL = arbolAVL;
+    }
+
+    public ArbolB getArbolB() {
+        return arbolB;
+    }
+
+    public void setArbolB(ArbolB arbolB) {
+        this.arbolB = arbolB;
+    }
+
+    public ArbolBMas getArbolBMas() {
+        return arbolBMas;
+    }
+
+    public void setArbolBMas(ArbolBMas arbolBMas) {
+        this.arbolBMas = arbolBMas;
+    }
+
+    public TablaHashLibros getTablaHash() {
+        return tablaHash;
+    }
+
+    public void setTablaHash(TablaHashLibros tablaHash) {
+        this.tablaHash = tablaHash;
+    }
+
+    public ListaEnlazadaDoble<Libro> getListaEnlazada() {
+        return listaEnlazada;
+    }
+
+    public void setListaEnlazada(ListaEnlazadaDoble<Libro> listaEnlazada) {
+        this.listaEnlazada = listaEnlazada;
+    }
+    
+    
 }

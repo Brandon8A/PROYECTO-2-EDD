@@ -1,0 +1,9 @@
+digraph BPlusTree {
+  node [shape=record, style=filled, fillcolor=lightgoldenrodyellow];
+  rankdir=TB;
+  node1452005754 [label="Realismo Magico\na"];
+  node1452005754 -> node928166321;
+  node928166321 [label="Ciencia Ficcion/Distopia\nb | Ciencia Ficcion/Distopia\nf | Ciencia Ficcion/Distopia\nj | Realismo Magico\na | Realismo Magico\ni"];
+  node1452005754 -> node1373168217;
+  node1373168217 [label="Realismo Magico\ne | Thriller/Misterio\nd | Thriller/Misterio\nh | Thriller/Misterio\nm"];
+}

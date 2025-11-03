@@ -1,0 +1,8 @@
+digraph BTree {
+  node [shape=record, style=filled, fillcolor=lightgrey];
+  node43710102 [label="a\nGabriel Garcia Marquez\n1967"];
+  node43710102 -> node1231413563;
+  node1231413563 [label="m\nDan Brown\n1670 | f\nGeroge owell\n1948 | b\nGeroge owell\n1949 | i\nGabriel Garcia Marquez\n1957"];
+  node43710102 -> node1253516060;
+  node1253516060 [label="d\nDan Brown\n2003 | h\nDan Brown\n2009 | e\nGabriel Garcia Marquez\n2010 | j\nGeroge owell\n2010"];
+}

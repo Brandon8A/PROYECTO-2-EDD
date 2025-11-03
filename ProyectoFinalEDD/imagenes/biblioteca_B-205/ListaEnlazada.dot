@@ -1,0 +1,29 @@
+digraph ListaDoble {
+  rankdir=LR;
+  node [shape=record, style=filled, fillcolor=lightblue, fontcolor=black];
+  nodo0 [label="a\nISBN: 978-037474728\nAño: 1967\nGénero: Realismo Magico"];
+  nodo0 -> nodo1;
+  nodo1 -> nodo0;
+  nodo1 [label="b\nISBN: 978-0451524935\nAño: 1949\nGénero: Ciencia Ficcion/Distopia"];
+  nodo1 -> nodo2;
+  nodo2 -> nodo1;
+  nodo2 [label="d\nISBN: 978-0307474278\nAño: 2003\nGénero: Thriller/Misterio"];
+  nodo2 -> nodo3;
+  nodo3 -> nodo2;
+  nodo3 [label="e\nISBN: 978-037474700\nAño: 2010\nGénero: Realismo Magico"];
+  nodo3 -> nodo4;
+  nodo4 -> nodo3;
+  nodo4 [label="f\nISBN: 978-037474701\nAño: 1948\nGénero: Ciencia Ficcion/Distopia"];
+  nodo4 -> nodo5;
+  nodo5 -> nodo4;
+  nodo5 [label="h\nISBN: 978-037474703\nAño: 2009\nGénero: Thriller/Misterio"];
+  nodo5 -> nodo6;
+  nodo6 -> nodo5;
+  nodo6 [label="i\nISBN: 978-037474704\nAño: 1957\nGénero: Realismo Magico"];
+  nodo6 -> nodo7;
+  nodo7 -> nodo6;
+  nodo7 [label="j\nISBN: 978-037474705\nAño: 2010\nGénero: Ciencia Ficcion/Distopia"];
+  nodo7 -> nodo8;
+  nodo8 -> nodo7;
+  nodo8 [label="m\nISBN: 978-037474707\nAño: 1670\nGénero: Thriller/Misterio"];
+}

@@ -11,7 +11,7 @@ import com.mycompany.proyectofinaledd.backend.grafo.Biblioteca;
  * @author brandon
  */
 public class Libro {
-    
+
     private String titulo;
     private String ISBN;
     private String genero;
@@ -41,7 +41,7 @@ public class Libro {
         this.estado = estado;
         this.prioridadTiempo = prioridadTiempo;
     }
-    
+
     public String getTitulo() {
         return titulo;
     }
@@ -121,6 +121,14 @@ public class Libro {
     public void setPrioridad(String prioridad) {
         this.prioridad = prioridad;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        // Escapar comillas para evitar errores en Graphviz
+        String tituloLimpio = titulo != null ? titulo.replace("\"", "") : "Sin título";
+        String generoLimpio = genero != null ? genero.replace("\"", "") : "Sin género";
+        String isbnLimpio = ISBN != null ? ISBN.replace("\"", "") : "Sin ISBN";
+
+        return tituloLimpio + "\\nISBN: " + isbnLimpio + "\\nAño: " + anio + "\\nGénero: " + generoLimpio;
+    }
 }

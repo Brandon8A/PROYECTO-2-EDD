@@ -1,0 +1,8 @@
+digraph AVL {
+node [shape=circle, style=filled, fillcolor="lightblue", fontcolor="black"];
+"g";
+"g" -> "c";
+"g" -> "k";
+"c";
+"k";
+}
