@@ -6,7 +6,10 @@ package com.mycompany.proyectofinaledd.frontend.inicio;
 
 import com.mycompany.proyectofinaledd.backend.Controlador;
 import com.mycompany.proyectofinaledd.backend.exception.ExceptionBibliotecaMagica;
+import com.mycompany.proyectofinaledd.backend.grafo.NodoGrafo;
+import com.mycompany.proyectofinaledd.backend.listaenlazada.NodoListaEnlazadaDoble;
 import com.mycompany.proyectofinaledd.frontend.agregarlibro.DialogAgregarLibro;
+import com.mycompany.proyectofinaledd.frontend.busquedas.DialogBusquedaTitulo;
 import javax.swing.JOptionPane;
 
 /**
@@ -36,7 +39,7 @@ public class Inicio extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        btnBuscarPorTitulo = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -53,7 +56,12 @@ public class Inicio extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton2.setText("Buscar por Titulo");
+        btnBuscarPorTitulo.setText("Buscar por Titulo");
+        btnBuscarPorTitulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarPorTituloActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Buscar por ISBN");
 
@@ -122,10 +130,10 @@ public class Inicio extends javax.swing.JFrame {
                         .addGap(123, 123, 123)
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(12, 12, 12)
                         .addComponent(btnAgregarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBuscarPorTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -161,7 +169,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarPorTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -207,11 +215,11 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btnAgregarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarLibroActionPerformed
         // TODO add your handling code here:
-        DialogAgregarLibro ingresarLibro = new DialogAgregarLibro(this, false);
+        DialogAgregarLibro ingresarLibro = new DialogAgregarLibro(this, false, this.controlador);
         ingresarLibro.setLocationRelativeTo(null);
         ingresarLibro.setVisible(true);
     }//GEN-LAST:event_btnAgregarLibroActionPerformed
-
+        
     private void btnCargarArchivoBibliotecasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarArchivoBibliotecasActionPerformed
         // TODO add your handling code here:
         try {
@@ -257,16 +265,29 @@ public class Inicio extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No se pueden generar las graficas aún", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        NodoListaEnlazadaDoble<NodoGrafo> actualGrafo = this.controlador.getGrafoBibliotecas().getNodosGrafo().getInicio();
+        while (actualGrafo != null) {            
+            actualGrafo.getDato().getBiblioteca().generarImagenesEstructuras();
+            actualGrafo = actualGrafo.getSiguiente();
+        }
+        JOptionPane.showConfirmDialog(null, "Imagenes generadas en carpeta: imagenes", "Exito!", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnGraficarEstructurasActionPerformed
+
+    private void btnBuscarPorTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPorTituloActionPerformed
+        // TODO add your handling code here:
+        DialogBusquedaTitulo buscarPorTitulo = new DialogBusquedaTitulo(this, false, this.controlador);
+        buscarPorTitulo.setLocationRelativeTo(null);
+        buscarPorTitulo.setVisible(true);
+    }//GEN-LAST:event_btnBuscarPorTituloActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarLibro;
+    private javax.swing.JButton btnBuscarPorTitulo;
     private javax.swing.JButton btnCargarArchivoBibliotecas;
     private javax.swing.JButton btnCargarArchivoConexiones;
     private javax.swing.JButton btnCargarArchivoLibros;
     private javax.swing.JButton btnGraficarEstructuras;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

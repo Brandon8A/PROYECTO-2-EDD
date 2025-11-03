@@ -197,11 +197,6 @@ public class Controlador {
         SwingUtilities.invokeLater(() -> new VentanaSimulacion(this).setVisible(true));
          */
         this.almacenarLibrosCargados();
-        NodoListaEnlazadaDoble<NodoGrafo> actualGrafo = this.grafoBibliotecas.getNodosGrafo().getInicio();
-        while (actualGrafo != null) {            
-            actualGrafo.getDato().getBiblioteca().generarImagenesEstructuras();
-            actualGrafo = actualGrafo.getSiguiente();
-        }
     }
 
     private void almacenarLibrosCargados() {

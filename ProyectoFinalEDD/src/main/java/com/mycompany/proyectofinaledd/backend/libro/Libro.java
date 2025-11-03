@@ -122,6 +122,8 @@ public class Libro {
         this.prioridad = prioridad;
     }
 
+    
+    
     @Override
     public String toString() {
         // Escapar comillas para evitar errores en Graphviz

@@ -4,18 +4,51 @@
  */
 package com.mycompany.proyectofinaledd.frontend.agregarlibro;
 
+import com.mycompany.proyectofinaledd.backend.Controlador;
+import com.mycompany.proyectofinaledd.backend.exception.ExceptionBibliotecaMagica;
+import com.mycompany.proyectofinaledd.backend.grafo.Biblioteca;
+import com.mycompany.proyectofinaledd.backend.grafo.NodoGrafo;
+import com.mycompany.proyectofinaledd.backend.libro.Libro;
+import com.mycompany.proyectofinaledd.backend.libro.TypeEstado;
+import com.mycompany.proyectofinaledd.backend.listaenlazada.ListaEnlazadaDoble;
+import com.mycompany.proyectofinaledd.backend.listaenlazada.NodoListaEnlazadaDoble;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author brandon
  */
 public class DialogAgregarLibro extends javax.swing.JDialog {
 
+    private Controlador controlador;
+
     /**
      * Creates new form DialogAgregarLibro
      */
-    public DialogAgregarLibro(java.awt.Frame parent, boolean modal) {
+    public DialogAgregarLibro(java.awt.Frame parent, boolean modal, Controlador controlador) {
         super(parent, modal);
         initComponents();
+        this.controlador = controlador;
+        this.asignarBibliotecasDestinoOrigen();
+    }
+
+    private boolean formularioValido() {
+        if (this.cajaTextoAnio.getText().isBlank() || this.cajaTextoAnio.getText().isEmpty()) {
+            return false;
+        }
+        if (this.cajaTextoAutor.getText().isBlank() || this.cajaTextoAutor.getText().isEmpty()) {
+            return false;
+        }
+        if (this.cajaTextoGenero.getText().isBlank() || this.cajaTextoGenero.getText().isEmpty()) {
+            return false;
+        }
+        if (this.cajaTextoISBN.getText().isBlank() || this.cajaTextoISBN.getText().isEmpty()) {
+            return false;
+        }
+        if (this.cajaTextoTitulo.getText().isBlank() || this.cajaTextoTitulo.getText().isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -29,21 +62,23 @@ public class DialogAgregarLibro extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        cajaTextoTitulo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        cajaTextoAutor = new javax.swing.JTextField();
+        cajaTextoAnio = new javax.swing.JTextField();
+        cajaTextoISBN = new javax.swing.JTextField();
+        cajaTextoGenero = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        comboBoxBibliotecaOrigen = new javax.swing.JComboBox<>();
+        comboBoxBibliotecaDestino = new javax.swing.JComboBox<>();
         btnIngresarLibro = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        comboBoxPrioridad = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -65,6 +100,13 @@ public class DialogAgregarLibro extends javax.swing.JDialog {
         jLabel8.setText("Biblioteca Destino:");
 
         btnIngresarLibro.setText("Ingresar Libro");
+        btnIngresarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarLibroActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Prioridad:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -81,16 +123,18 @@ public class DialogAgregarLibro extends javax.swing.JDialog {
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel8))
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9))
                         .addGap(60, 60, 60)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField4)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField5)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, 0, 163, Short.MAX_VALUE)))
+                            .addComponent(cajaTextoTitulo)
+                            .addComponent(cajaTextoAutor)
+                            .addComponent(cajaTextoISBN)
+                            .addComponent(cajaTextoAnio)
+                            .addComponent(cajaTextoGenero)
+                            .addComponent(comboBoxBibliotecaDestino, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(comboBoxBibliotecaOrigen, 0, 163, Short.MAX_VALUE)
+                            .addComponent(comboBoxPrioridad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(184, 184, 184)
                         .addComponent(jLabel6))
@@ -107,32 +151,36 @@ public class DialogAgregarLibro extends javax.swing.JDialog {
                 .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cajaTextoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cajaTextoAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cajaTextoISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cajaTextoAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cajaTextoGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboBoxBibliotecaOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                    .addComponent(comboBoxBibliotecaDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(comboBoxPrioridad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addComponent(btnIngresarLibro)
                 .addGap(24, 24, 24))
         );
@@ -157,12 +205,90 @@ public class DialogAgregarLibro extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
+    private void btnIngresarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarLibroActionPerformed
+        // TODO add your handling code here:
+        Libro libroCreado;
+
+        if (this.formularioValido()) {
+            if (this.comboBoxPrioridad.getSelectedItem().equals("Tiempo")) {
+                libroCreado = new Libro(this.cajaTextoTitulo.getText(), this.cajaTextoISBN.getText(), this.cajaTextoGenero.getText(),
+                        Integer.valueOf(this.cajaTextoAnio.getText()), cajaTextoAutor.getText(), TypeEstado.EN_TRANSITO, true);
+            } else {
+                libroCreado = new Libro(this.cajaTextoTitulo.getText(), this.cajaTextoISBN.getText(), this.cajaTextoGenero.getText(),
+                        Integer.valueOf(this.cajaTextoAnio.getText()), cajaTextoAutor.getText(), TypeEstado.EN_TRANSITO, false);
+            }
+
+            NodoListaEnlazadaDoble<NodoGrafo> actualNodoGrafo = this.controlador.getGrafoBibliotecas().getNodosGrafo().getInicio();
+            while (actualNodoGrafo != null) {
+                //Condicional para verificar si la biblioteca origen del libro coincide con alguna de las del grafo
+                if (libroCreado.getBibliotecaDestino().getId().equals(actualNodoGrafo.getDato().getBiblioteca().getId())) {
+                    actualNodoGrafo.getDato().getBiblioteca().getArbolAVL().insertar(libroCreado);
+                    actualNodoGrafo.getDato().getBiblioteca().getArbolB().insert(libroCreado);
+                    actualNodoGrafo.getDato().getBiblioteca().getArbolBMas().insertar(libroCreado);
+                    actualNodoGrafo.getDato().getBiblioteca().getTablaHash().insertar(libroCreado);
+                    actualNodoGrafo.getDato().getBiblioteca().getListaEnlazada().agregarValorAlFinal(libroCreado);
+                    break;
+                }
+                actualNodoGrafo = actualNodoGrafo.getSiguiente();
+            }
+            if (libroCreado.isPrioridadTiempo()) {
+                ListaEnlazadaDoble<Biblioteca> rutaTiempo = this.controlador.getGrafoBibliotecas().dijkstra(
+                        libroCreado.getBibliotecaOrigen().getId(), libroCreado.getBibliotecaDestino().getId(), true);
+                JOptionPane.showMessageDialog(null, "Ruta"+this.mostrarRuta(rutaTiempo) + "\nTiempo: " 
+                        + this.controlador.getGrafoBibliotecas().calcularTotalRuta(rutaTiempo, true),
+                        "Libro guardado con exito", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                ListaEnlazadaDoble<Biblioteca> rutaCosto = this.controlador.getGrafoBibliotecas().dijkstra(
+                        libroCreado.getBibliotecaOrigen().getId(), libroCreado.getBibliotecaDestino().getId(), false);
+                JOptionPane.showMessageDialog(null, "Ruta"+this.mostrarRuta(rutaCosto) + "\nCosto: "
+                        + this.controlador.getGrafoBibliotecas().calcularTotalRuta(rutaCosto, false),
+                        "Libro guardado con exito", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        }
+        JOptionPane.showMessageDialog(null, "Error en el formulario", "Error", JOptionPane.ERROR_MESSAGE);
+    }//GEN-LAST:event_btnIngresarLibroActionPerformed
+
+    private void asignarBibliotecasDestinoOrigen() {
+        NodoListaEnlazadaDoble<Biblioteca> actual = this.controlador.getBibliotecas().getInicio();
+        while (actual != null) {
+            this.comboBoxBibliotecaOrigen.addItem(actual.getDato().getId());
+            this.comboBoxBibliotecaDestino.addItem(actual.getDato().getId());
+        }
+        this.comboBoxPrioridad.addItem("Tiempo");
+        this.comboBoxPrioridad.addItem("Costo");
+    }
+
+    private String mostrarRuta(ListaEnlazadaDoble<Biblioteca> ruta) {
+        String rutaOptima = "";
+        if (ruta.getTamanio() == 0) {
+            System.out.println("⚠️ No hay ruta disponible.");
+            return null;
+        }
+        NodoListaEnlazadaDoble<Biblioteca> actual = ruta.getInicio();
+        while (actual != null) {
+            System.out.print(actual.getDato().getId());
+            rutaOptima = rutaOptima + actual.getDato().getId();
+            if (actual.getSiguiente() != null) {
+                System.out.print(" --> ");
+                rutaOptima = rutaOptima + " --> ";
+            }
+            actual = actual.getSiguiente();
+        }
+        System.out.println();
+        return "";
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresarLibro;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JTextField cajaTextoAnio;
+    private javax.swing.JTextField cajaTextoAutor;
+    private javax.swing.JTextField cajaTextoGenero;
+    private javax.swing.JTextField cajaTextoISBN;
+    private javax.swing.JTextField cajaTextoTitulo;
+    private javax.swing.JComboBox<String> comboBoxBibliotecaDestino;
+    private javax.swing.JComboBox<String> comboBoxBibliotecaOrigen;
+    private javax.swing.JComboBox<String> comboBoxPrioridad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -171,11 +297,7 @@ public class DialogAgregarLibro extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }

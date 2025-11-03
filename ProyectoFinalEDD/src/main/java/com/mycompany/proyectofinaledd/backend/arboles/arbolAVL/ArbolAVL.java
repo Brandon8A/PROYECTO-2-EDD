@@ -8,6 +8,8 @@ import com.mycompany.proyectofinaledd.backend.libro.Libro;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -159,5 +161,46 @@ public class ArbolAVL {
 
         generarDot(nodo.getIzquierda(), writer);
         generarDot(nodo.getDerecha(), writer);
+    }
+
+    public Libro buscarPorTitulo(String titulo) {
+        return buscarPorTituloRecursivo(raiz, titulo);
+    }
+
+    private Libro buscarPorTituloRecursivo(NodoAVL nodo, String titulo) {
+        if (nodo == null) {
+            return null;
+        }
+
+        int cmp = titulo.compareToIgnoreCase(nodo.getLibro().getTitulo());
+
+        if (cmp == 0) {
+            return nodo.getLibro(); // encontrado
+        } else if (cmp < 0) {
+            return buscarPorTituloRecursivo(nodo.getIzquierda(), titulo);
+        } else {
+            return buscarPorTituloRecursivo(nodo.getDerecha(), titulo);
+        }
+    }
+
+    public List<Libro> sugerenciasPorTitulo(String texto) {
+        List<Libro> sugerencias = new ArrayList<>();
+        obtenerSugerencias(raiz, texto.toLowerCase(), sugerencias);
+        return sugerencias;
+    }
+
+    private void obtenerSugerencias(NodoAVL nodo, String texto, List<Libro> lista) {
+        if (nodo == null) {
+            return;
+        }
+
+        obtenerSugerencias(nodo.getIzquierda(), texto, lista);
+
+        String titulo = nodo.getLibro().getTitulo().toLowerCase();
+        if (titulo.contains(texto)) {
+            lista.add(nodo.getLibro());
+        }
+
+        obtenerSugerencias(nodo.getDerecha(), texto, lista);
     }
 }
