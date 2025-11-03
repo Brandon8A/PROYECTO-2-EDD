@@ -172,12 +172,6 @@ public class Controlador {
                         // Colocar libro en la cola de ingreso de la biblioteca de origen
                         bibliotecaOrigen.getColaIngreso().agregarValorAlFinal(libro);
                         this.libros.agregarValorAlFinal(libro);
-                        /*
-                        this.arbolAVL.insertar(libro);
-                        this.arbolB.insert(libro);
-                        this.arbolBMas.insertar(libro);
-                        this.tablaHashLibros.insertar(libro);
-                         */
                     } catch (Exception e) {
                         System.out.println("⚠ Error procesando línea " + numeroLinea + ": " + e.getMessage());
                     }
