@@ -5,4 +5,4 @@ Red nacional de bibliotecas encantadas, donde cada una posee su propio catálogo
 2. Abrir una terminal en esa carpeta.
 3. Ingresar el siguiente comando:
 ```bash
-java -jar ProyectoFinalEDD-1.0-SNAPSHOT
+java -jar ProyectoFinalEDD-1.0-SNAPSHOT.jar
