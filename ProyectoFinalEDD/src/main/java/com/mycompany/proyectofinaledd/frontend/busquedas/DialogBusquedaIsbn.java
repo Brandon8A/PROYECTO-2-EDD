@@ -16,18 +16,18 @@ import javax.swing.JOptionPane;
  *
  * @author brandon
  */
-public class DialogBusquedaTitulo extends javax.swing.JDialog {
+public class DialogBusquedaIsbn extends javax.swing.JDialog {
 
     private Controlador controlador;
 
     /**
-     * Creates new form DialogBusquedaTitulo
+     * Creates new form DialogBusquedaGenero
      */
-    public DialogBusquedaTitulo(java.awt.Frame parent, boolean modal, Controlador controlador) {
+    public DialogBusquedaIsbn(java.awt.Frame parent, boolean modal, Controlador controlador) {
         super(parent, modal);
         initComponents();
         this.controlador = controlador;
-        this.asignarBibliotecasDestinoOrigen();
+        this.asignarBibliotecas();
     }
 
     /**
@@ -40,78 +40,77 @@ public class DialogBusquedaTitulo extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txtBuscarTitulo = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
-        txtResultado = new javax.swing.JTextField();
-        comboBoxBibliotecaOrigen = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        txtIsbn = new javax.swing.JTextField();
+        comboBoxBibliotecas = new javax.swing.JComboBox<>();
+        btnBuscar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        txtResultado = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        btnBuscar.setText("Buscar");
+        jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel1.setText("Busqueda por ISBN (Tablas Hash)");
+
+        jLabel2.setText("ISBN del libro: ");
+
+        jLabel3.setText("Seleccionar Biblioteca:");
+
+        btnBuscar.setText("Buscar por ISBN");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Buscar en biblioteca: ");
-
-        jLabel2.setText("Titulo del libro: ");
-
-        jLabel3.setText("Resultado o sugerencias");
-
-        jLabel4.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel4.setText("Buscar por Titulo (Arbol AVL)");
+        jLabel4.setText("Resultado:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(146, 146, 146)
+                .addComponent(btnBuscar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(59, 59, 59)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                    .addComponent(jLabel1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(21, 21, 21)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtBuscarTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboBoxBibliotecaOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(124, 124, 124)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addComponent(jLabel4)))
-                .addContainerGap(12, Short.MAX_VALUE))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtIsbn)
+                            .addComponent(comboBoxBibliotecas, 0, 135, Short.MAX_VALUE)
+                            .addComponent(txtResultado))))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBuscarTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(txtIsbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboBoxBibliotecaOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel3)
+                    .addComponent(comboBoxBibliotecas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(txtResultado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addComponent(btnBuscar)
-                .addGap(38, 38, 38))
+                .addGap(44, 44, 44))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -136,68 +135,52 @@ public class DialogBusquedaTitulo extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        String titulo = txtBuscarTitulo.getText().trim();
+        String isbn = txtIsbn.getText().trim();
 
-        if (titulo.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor ingresa un título.");
+        if (isbn.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor ingresa un ISBN valido.");
             return;
         }
 
         NodoListaEnlazadaDoble<NodoGrafo> bibliotecaEncontrada = this.obtenerBiblioteca();
         if (bibliotecaEncontrada != null) {
-            Libro encontrado = bibliotecaEncontrada.getDato().getBiblioteca().getArbolAVL().buscarPorTitulo(titulo);
-            if (encontrado != null) {
-                txtResultado.setText("📖 Libro encontrado:\n"
-                        + "Título: " + encontrado.getTitulo() + "\n"
-                        + "Autor: " + encontrado.getAutor() + "\n"
-                        + "Género: " + encontrado.getGenero() + "\n"
-                        + "Fecha: " + encontrado.getAnio());
+            Libro libroEncontrado = bibliotecaEncontrada.getDato().getBiblioteca().getTablaHash().buscar(isbn);
+            if (libroEncontrado != null) {
+                txtResultado.setText(libroEncontrado.getTitulo() + " (" + libroEncontrado.getISBN() + ")");
             } else {
-                // Mostrar sugerencias
-                List<Libro> sugerencias = bibliotecaEncontrada.getDato().getBiblioteca().getArbolAVL().sugerenciasPorTitulo(titulo);
-                if (sugerencias.isEmpty()) {
-                    txtResultado.setText("❌No se encontró ningún libro con ese título.");
-                } else {
-                    StringBuilder sb = new StringBuilder("🔍 No se encontró exactamente.\nSugerencias:\n\n");
-                    for (Libro l : sugerencias) {
-                        sb.append("- ").append(l.getTitulo()).append("\n");
-                    }
-                    txtResultado.setText(sb.toString());
-                }
+                JOptionPane.showConfirmDialog(null, "Error, no existe en esta Biblioteca un libro con el ISBN ingresado", "Fatal!", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showConfirmDialog(null, "Error: biblioteca no encontrada");
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void asignarBibliotecasDestinoOrigen() {
+    private void asignarBibliotecas() {
         NodoListaEnlazadaDoble<Biblioteca> actual = this.controlador.getBibliotecas().getInicio();
         while (actual != null) {
-            this.comboBoxBibliotecaOrigen.addItem(actual.getDato().getId());
+            this.comboBoxBibliotecas.addItem(actual.getDato().getId());
         }
     }
 
     private NodoListaEnlazadaDoble<NodoGrafo> obtenerBiblioteca() {
         NodoListaEnlazadaDoble<NodoGrafo> actual = controlador.getGrafoBibliotecas().getNodosGrafo().getInicio();
         while (actual != null) {
-            if (actual.getDato().getBiblioteca().getId().equals(this.comboBoxBibliotecaOrigen.getSelectedItem())) {
+            if (actual.getDato().getBiblioteca().getId().equals(this.comboBoxBibliotecas.getSelectedItem())) {
                 return actual;
             }
             actual = actual.getSiguiente();
         }
         return null;
     }
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JComboBox<String> comboBoxBibliotecaOrigen;
+    private javax.swing.JComboBox<String> comboBoxBibliotecas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtBuscarTitulo;
+    private javax.swing.JTextField txtIsbn;
     private javax.swing.JTextField txtResultado;
     // End of variables declaration//GEN-END:variables
 }

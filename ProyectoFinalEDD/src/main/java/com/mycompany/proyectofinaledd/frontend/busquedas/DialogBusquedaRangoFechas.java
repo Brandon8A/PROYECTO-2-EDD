@@ -16,29 +16,18 @@ import javax.swing.JOptionPane;
  *
  * @author brandon
  */
-public class DialogBusquedaGenero extends javax.swing.JDialog {
+public class DialogBusquedaRangoFechas extends javax.swing.JDialog {
 
     private Controlador controlador;
 
     /**
-     * Creates new form DialogBusquedaISBN
+     * Creates new form DialogBusqudaRangoFechas
      */
-    public DialogBusquedaGenero(java.awt.Frame parent, boolean modal, Controlador controlador) {
+    public DialogBusquedaRangoFechas(java.awt.Frame parent, boolean modal, Controlador controlador) {
         super(parent, modal);
         initComponents();
         this.controlador = controlador;
         this.asignarBibliotecas();
-    }
-
-    private NodoListaEnlazadaDoble<NodoGrafo> obtenerBiblioteca() {
-        NodoListaEnlazadaDoble<NodoGrafo> actual = controlador.getGrafoBibliotecas().getNodosGrafo().getInicio();
-        while (actual != null) {
-            if (actual.getDato().getBiblioteca().getId().equals(this.comboBoxBibliotecas.getSelectedItem())) {
-                return actual;
-            }
-            actual = actual.getSiguiente();
-        }
-        return null;
     }
 
     /**
@@ -52,35 +41,33 @@ public class DialogBusquedaGenero extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtGenero = new javax.swing.JTextField();
-        txtResultado = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        btnBuscar = new javax.swing.JButton();
+        txtFechaInicio = new javax.swing.JTextField();
+        txtFechaFin = new javax.swing.JTextField();
+        txtResultado = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
         comboBoxBibliotecas = new javax.swing.JComboBox<>();
+        btnBuscarLibros = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel1.setText("Busqueda por ISBN (Arbol B+)");
+        jLabel1.setText("Busqueda Por Intervalo de Fechas");
 
-        txtGenero.addActionListener(new java.awt.event.ActionListener() {
+        jLabel2.setText("Fecha Inicio: ");
+
+        jLabel3.setText("Fecha Fin: ");
+
+        jLabel4.setText("Resultados:");
+
+        jLabel5.setText("Biblioteca:");
+
+        btnBuscarLibros.setText("Buscar libros");
+        btnBuscarLibros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtGeneroActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Genero: ");
-
-        jLabel3.setText("Biblioteca:");
-
-        jLabel4.setText("Resultados o sugerencias");
-
-        btnBuscar.setText("Buscar genero");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
+                btnBuscarLibrosActionPerformed(evt);
             }
         });
 
@@ -91,48 +78,50 @@ public class DialogBusquedaGenero extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
+                        .addGap(50, 50, 50)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
+                            .addComponent(jLabel1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(118, 118, 118)
-                                .addComponent(txtGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(109, 109, 109)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel5))
+                                .addGap(106, 106, 106)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtResultado)
-                                    .addComponent(comboBoxBibliotecas, 0, 143, Short.MAX_VALUE)))))
+                                    .addComponent(txtFechaInicio)
+                                    .addComponent(comboBoxBibliotecas, 0, 122, Short.MAX_VALUE)
+                                    .addComponent(txtFechaFin)
+                                    .addComponent(txtResultado)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(89, 89, 89)
-                        .addComponent(jLabel1)))
-                .addContainerGap(65, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnBuscar)
-                .addGap(165, 165, 165))
+                        .addGap(144, 144, 144)
+                        .addComponent(btnBuscarLibros)))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(jLabel5)
                     .addComponent(comboBoxBibliotecas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtResultado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                .addComponent(btnBuscar)
-                .addGap(42, 42, 42))
+                    .addComponent(jLabel2)
+                    .addComponent(txtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtResultado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(btnBuscarLibros)
+                .addGap(41, 41, 41))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -155,30 +144,24 @@ public class DialogBusquedaGenero extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGeneroActionPerformed
+    private void btnBuscarLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarLibrosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtGeneroActionPerformed
+        try {
+            int desde = Integer.parseInt(txtFechaInicio.getText());
+            int hasta = Integer.parseInt(txtFechaFin.getText());
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-        String genero = txtGenero.getText().trim();
-
-        if (genero.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor ingresa un genero.");
-            return;
-        }
-
-        NodoListaEnlazadaDoble<NodoGrafo> bibliotecaEncontrada = this.obtenerBiblioteca();
-        if (bibliotecaEncontrada != null) {
-            List<Libro> librosEncontrados = bibliotecaEncontrada.getDato().getBiblioteca().getArbolBMas().buscarPorGenero(genero);
-
-            for (Libro libro : librosEncontrados) {
+            NodoListaEnlazadaDoble<NodoGrafo> bibliotecaEncontrada = this.obtenerBiblioteca();
+            
+            List<Libro> resultados = bibliotecaEncontrada.getDato().getBiblioteca().getArbolB().buscarPorRango(desde, hasta);
+            
+            for (Libro libro : resultados) {
+                System.out.println(libro.getTitulo() + " (" + libro.getAnio() + ")");
                 txtResultado.setText(libro.getTitulo() + " (" + libro.getGenero() + ")\n");
             }
-        } else {
-            JOptionPane.showConfirmDialog(null, "Error: biblioteca no encontrada");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ingrese años válidos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnBuscarActionPerformed
+    }//GEN-LAST:event_btnBuscarLibrosActionPerformed
 
     private void asignarBibliotecas() {
         NodoListaEnlazadaDoble<Biblioteca> actual = this.controlador.getBibliotecas().getInicio();
@@ -187,15 +170,28 @@ public class DialogBusquedaGenero extends javax.swing.JDialog {
         }
     }
 
+    private NodoListaEnlazadaDoble<NodoGrafo> obtenerBiblioteca() {
+        NodoListaEnlazadaDoble<NodoGrafo> actual = controlador.getGrafoBibliotecas().getNodosGrafo().getInicio();
+        while (actual != null) {
+            if (actual.getDato().getBiblioteca().getId().equals(this.comboBoxBibliotecas.getSelectedItem())) {
+                return actual;
+            }
+            actual = actual.getSiguiente();
+        }
+        return null;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnBuscarLibros;
     private javax.swing.JComboBox<String> comboBoxBibliotecas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtGenero;
+    private javax.swing.JTextField txtFechaFin;
+    private javax.swing.JTextField txtFechaInicio;
     private javax.swing.JTextField txtResultado;
     // End of variables declaration//GEN-END:variables
 }

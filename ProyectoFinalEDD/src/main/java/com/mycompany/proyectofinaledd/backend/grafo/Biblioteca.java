@@ -58,7 +58,7 @@ public class Biblioteca {
         this.arbolAVL = new ArbolAVL();
         this.arbolB = new ArbolB(3);
         this.arbolBMas = new ArbolBMas(3);
-        this.tablaHash = new TablaHashLibros(149);
+        this.tablaHash = new TablaHashLibros(127);
         this.listaEnlazada = new ListaEnlazadaDoble<>();
     }
 

@@ -58,7 +58,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="btnBuscarPorTitulo" min="-2" pref="226" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jButton3" min="-2" pref="226" max="-2" attributes="0"/>
+                          <Component id="btnBuscarPorISBN" min="-2" pref="226" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
@@ -67,9 +67,9 @@
                                   <Component id="btnSalir" min="-2" pref="226" max="-2" attributes="0"/>
                                   <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jButton4" min="-2" pref="226" max="-2" attributes="0"/>
+                                          <Component id="btnBusquedaGenero" min="-2" pref="226" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="jButton5" min="-2" pref="226" max="-2" attributes="0"/>
+                                          <Component id="btnBusquedaRangoFechas" min="-2" pref="226" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="jButton7" min="-2" pref="226" max="-2" attributes="0"/>
@@ -105,12 +105,12 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnAgregarLibro" alignment="3" min="-2" pref="57" max="-2" attributes="0"/>
                       <Component id="btnBuscarPorTitulo" alignment="3" min="-2" pref="57" max="-2" attributes="0"/>
-                      <Component id="jButton3" alignment="3" min="-2" pref="57" max="-2" attributes="0"/>
+                      <Component id="btnBuscarPorISBN" alignment="3" min="-2" pref="57" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton4" alignment="3" min="-2" pref="57" max="-2" attributes="0"/>
-                      <Component id="jButton5" alignment="3" min="-2" pref="57" max="-2" attributes="0"/>
+                      <Component id="btnBusquedaGenero" alignment="3" min="-2" pref="57" max="-2" attributes="0"/>
+                      <Component id="btnBusquedaRangoFechas" alignment="3" min="-2" pref="57" max="-2" attributes="0"/>
                       <Component id="jButton6" alignment="3" min="-2" pref="57" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -145,20 +145,29 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarPorTituloActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="btnBuscarPorISBN">
           <Properties>
             <Property name="text" type="java.lang.String" value="Buscar por ISBN"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarPorISBNActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton4">
+        <Component class="javax.swing.JButton" name="btnBusquedaGenero">
           <Properties>
             <Property name="text" type="java.lang.String" value="Buscar por Genero"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBusquedaGeneroActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton5">
+        <Component class="javax.swing.JButton" name="btnBusquedaRangoFechas">
           <Properties>
             <Property name="text" type="java.lang.String" value="Buscar por Rango de Fechas"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBusquedaRangoFechasActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton6">
           <Properties>

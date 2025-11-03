@@ -115,6 +115,8 @@ public class NodoArbolBMas {
         }
     }
 
+    
+    
     // Getters y Setters
     public Libro[] getClaves() { 
         return claves; 
@@ -127,6 +129,12 @@ public class NodoArbolBMas {
     public int getNumClaves() { 
         return numClaves; 
     }
+
+    public void setNumClaves(int numClaves) {
+        this.numClaves = numClaves;
+    }
+    
+    
     
     public boolean isHoja() { 
         return hoja; 

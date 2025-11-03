@@ -9,6 +9,9 @@ import com.mycompany.proyectofinaledd.backend.exception.ExceptionBibliotecaMagic
 import com.mycompany.proyectofinaledd.backend.grafo.NodoGrafo;
 import com.mycompany.proyectofinaledd.backend.listaenlazada.NodoListaEnlazadaDoble;
 import com.mycompany.proyectofinaledd.frontend.agregarlibro.DialogAgregarLibro;
+import com.mycompany.proyectofinaledd.frontend.busquedas.DialogBusquedaGenero;
+import com.mycompany.proyectofinaledd.frontend.busquedas.DialogBusquedaIsbn;
+import com.mycompany.proyectofinaledd.frontend.busquedas.DialogBusquedaRangoFechas;
 import com.mycompany.proyectofinaledd.frontend.busquedas.DialogBusquedaTitulo;
 import javax.swing.JOptionPane;
 
@@ -40,9 +43,9 @@ public class Inicio extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         btnBuscarPorTitulo = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnBuscarPorISBN = new javax.swing.JButton();
+        btnBusquedaGenero = new javax.swing.JButton();
+        btnBusquedaRangoFechas = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
@@ -63,11 +66,26 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Buscar por ISBN");
+        btnBuscarPorISBN.setText("Buscar por ISBN");
+        btnBuscarPorISBN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarPorISBNActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Buscar por Genero");
+        btnBusquedaGenero.setText("Buscar por Genero");
+        btnBusquedaGenero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBusquedaGeneroActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Buscar por Rango de Fechas");
+        btnBusquedaRangoFechas.setText("Buscar por Rango de Fechas");
+        btnBusquedaRangoFechas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBusquedaRangoFechasActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Eliminar Libro");
 
@@ -135,7 +153,7 @@ public class Inicio extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnBuscarPorTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnBuscarPorISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,9 +161,9 @@ public class Inicio extends javax.swing.JFrame {
                                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnBusquedaGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btnBusquedaRangoFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
@@ -170,11 +188,11 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscarPorTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBuscarPorISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBusquedaGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBusquedaRangoFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -280,17 +298,38 @@ public class Inicio extends javax.swing.JFrame {
         buscarPorTitulo.setVisible(true);
     }//GEN-LAST:event_btnBuscarPorTituloActionPerformed
 
+    private void btnBuscarPorISBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPorISBNActionPerformed
+        // TODO add your handling code here:
+        DialogBusquedaIsbn busquedaIsbn = new DialogBusquedaIsbn(this, false, controlador);
+        busquedaIsbn.setLocationRelativeTo(null);
+        busquedaIsbn.setVisible(true);
+    }//GEN-LAST:event_btnBuscarPorISBNActionPerformed
+
+    private void btnBusquedaGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaGeneroActionPerformed
+        // TODO add your handling code here:
+        DialogBusquedaGenero buscarGenero = new DialogBusquedaGenero(this, false, controlador);
+        buscarGenero.setLocationRelativeTo(null);
+        buscarGenero.setVisible(true);
+    }//GEN-LAST:event_btnBusquedaGeneroActionPerformed
+
+    private void btnBusquedaRangoFechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaRangoFechasActionPerformed
+        // TODO add your handling code here:
+        DialogBusquedaRangoFechas busquedaPorFechas = new DialogBusquedaRangoFechas(this, false, controlador);
+        busquedaPorFechas.setLocationRelativeTo(null);
+        busquedaPorFechas.setVisible(true);
+    }//GEN-LAST:event_btnBusquedaRangoFechasActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarLibro;
+    private javax.swing.JButton btnBuscarPorISBN;
     private javax.swing.JButton btnBuscarPorTitulo;
+    private javax.swing.JButton btnBusquedaGenero;
+    private javax.swing.JButton btnBusquedaRangoFechas;
     private javax.swing.JButton btnCargarArchivoBibliotecas;
     private javax.swing.JButton btnCargarArchivoConexiones;
     private javax.swing.JButton btnCargarArchivoLibros;
     private javax.swing.JButton btnGraficarEstructuras;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;

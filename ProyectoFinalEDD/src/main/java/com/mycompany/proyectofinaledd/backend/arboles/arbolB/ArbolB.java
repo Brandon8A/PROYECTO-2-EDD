@@ -6,9 +6,10 @@ package com.mycompany.proyectofinaledd.backend.arboles.arbolB;
 
 import com.mycompany.proyectofinaledd.backend.libro.Libro;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -91,6 +92,19 @@ public class ArbolB {
         } catch (IOException e) {
             System.out.println("⚠ Error generando imagen del árbol B: " + e.getMessage());
         }
+    }
+
+    public List<Libro> buscarPorRango(int anioInicio, int anioFin) {
+        List<Libro> resultados = new ArrayList<>();
+
+        if (raiz == null) {
+            System.out.println("⚠ Árbol vacío");
+            return resultados;
+        }
+
+        raiz.buscarPorRango(anioInicio, anioFin, resultados);
+        System.out.println("✅ Se encontraron " + resultados.size() + " libros entre " + anioInicio + " y " + anioFin);
+        return resultados;
     }
 
     /*

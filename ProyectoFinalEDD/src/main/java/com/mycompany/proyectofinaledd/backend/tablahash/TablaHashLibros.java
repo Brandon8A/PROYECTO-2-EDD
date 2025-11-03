@@ -14,6 +14,7 @@ import java.io.PrintWriter;
  * @author brandon
  */
 public class TablaHashLibros {
+
     private NodoHash[] tabla;
     private int tamaño;
 
@@ -92,22 +93,26 @@ public class TablaHashLibros {
             } else {
                 while (actual != null) {
                     Libro libro = actual.getLibro();
-                    System.out.print(libro.getISBN()+ " (" + libro.getTitulo() + ")");
-                    if (actual.getSiguiente() != null) System.out.print(" → ");
+                    System.out.print(libro.getISBN() + " (" + libro.getTitulo() + ")");
+                    if (actual.getSiguiente() != null) {
+                        System.out.print(" → ");
+                    }
                     actual = actual.getSiguiente();
                 }
                 System.out.println();
             }
         }
     }
-    
+
     // -------------------------------------------------
     // Generar imagen con Graphviz
     // -------------------------------------------------
     public void generarImagen(String nombreImagen, String nombreCarpeta) {
         try {
             File carpeta = new File(nombreCarpeta);
-            if (!carpeta.exists()) carpeta.mkdirs();
+            if (!carpeta.exists()) {
+                carpeta.mkdirs();
+            }
 
             String rutaDot = nombreCarpeta + "/" + nombreImagen + ".dot";
             String rutaPng = nombreCarpeta + "/" + nombreImagen + ".png";
@@ -129,8 +134,8 @@ public class TablaHashLibros {
                     while (actual != null) {
                         String nodoLibro = "n" + i + "_" + contador;
                         Libro libro = actual.getLibro();
-                        out.println("  " + nodoLibro + " [label=\"ISBN: " + libro.getISBN()+ "\\n" +
-                                    libro.getTitulo().replace("\"", "") + "\", fillcolor=lightgoldenrodyellow];");
+                        out.println("  " + nodoLibro + " [label=\"ISBN: " + libro.getISBN() + "\\n"
+                                + libro.getTitulo().replace("\"", "") + "\", fillcolor=lightgoldenrodyellow];");
 
                         if (contador == 0) {
                             out.println("  " + nodoIndice + " -> " + nodoLibro + ";");
@@ -156,5 +161,34 @@ public class TablaHashLibros {
         } catch (IOException e) {
             System.err.println("❌ Error al generar la imagen de la tabla hash: " + e.getMessage());
         }
+    }
+
+    // -------------------------------------------------
+// Eliminar libro por ISBN
+// -------------------------------------------------
+    public boolean eliminarPorISBN(String isbn) {
+        int indice = funcionHash(isbn);
+        NodoHash actual = tabla[indice];
+        NodoHash anterior = null;
+
+        while (actual != null) {
+            Libro libro = actual.getLibro();
+            if (libro.getISBN().equalsIgnoreCase(isbn)) {
+                // Caso 1: el nodo a eliminar es la cabeza de la lista
+                if (anterior == null) {
+                    tabla[indice] = actual.getSiguiente();
+                } else {
+                    // Caso 2: el nodo está en medio o final
+                    anterior.setSiguiente(actual.getSiguiente());
+                }
+                System.out.println("🗑️Libro eliminado (ISBN: " + isbn + ") del índice [" + indice + "]");
+                return true;
+            }
+            anterior = actual;
+            actual = actual.getSiguiente();
+        }
+
+        System.out.println("⚠️ No se encontró ningún libro con ISBN: " + isbn);
+        return false;
     }
 }

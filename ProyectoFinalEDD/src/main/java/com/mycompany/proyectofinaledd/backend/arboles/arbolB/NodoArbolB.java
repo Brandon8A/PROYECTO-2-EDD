@@ -5,8 +5,8 @@
 package com.mycompany.proyectofinaledd.backend.arboles.arbolB;
 
 import com.mycompany.proyectofinaledd.backend.libro.Libro;
-import com.mycompany.proyectofinaledd.backend.listaenlazada.ListaEnlazadaDoble;
 import java.io.PrintWriter;
+import java.util.List;
 
 /**
  *
@@ -162,6 +162,26 @@ public class NodoArbolB {
         }
     }
 
+    public void buscarPorRango(int anioInicio, int anioFin, List<Libro> resultados) {
+    int i;
+    for (i = 0; i < numeroActualClaves; i++) {
+        // Si no es hoja, explorar subárbol izquierdo
+        if (!hoja) {
+            nodosHijos[i].buscarPorRango(anioInicio, anioFin, resultados);
+        }
+
+        int anio = claves[i].getAnio();
+        if (anio >= anioInicio && anio <= anioFin) {
+            resultados.add(claves[i]);
+        }
+    }
+
+    // Explorar el último hijo
+    if (!hoja) {
+        nodosHijos[i].buscarPorRango(anioInicio, anioFin, resultados);
+    }
+}
+    
     /*
     public void generateDotRec(PrintWriter out) {
         out.print("  node" + this.hashCode() + " [label=\"");
