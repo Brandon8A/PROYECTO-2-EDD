@@ -47,7 +47,7 @@ public class Inicio extends javax.swing.JFrame {
         btnBusquedaGenero = new javax.swing.JButton();
         btnBusquedaRangoFechas = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        ListarLibros = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         btnAgregarLibro = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
@@ -88,8 +88,13 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         jButton6.setText("Eliminar Libro");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
-        jButton7.setText("Listar Libros por Titulo");
+        ListarLibros.setText("Listar Libros por Titulo");
 
         jButton8.setText("Exportar Libro entre Bibliotecas");
 
@@ -165,7 +170,7 @@ public class Inicio extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(btnBusquedaRangoFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(ListarLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jButton8))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -197,7 +202,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ListarLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnGraficarEstructuras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
@@ -319,7 +324,13 @@ public class Inicio extends javax.swing.JFrame {
         busquedaPorFechas.setVisible(true);
     }//GEN-LAST:event_btnBusquedaRangoFechasActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton6ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ListarLibros;
     private javax.swing.JButton btnAgregarLibro;
     private javax.swing.JButton btnBuscarPorISBN;
     private javax.swing.JButton btnBuscarPorTitulo;
@@ -331,7 +342,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton btnGraficarEstructuras;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

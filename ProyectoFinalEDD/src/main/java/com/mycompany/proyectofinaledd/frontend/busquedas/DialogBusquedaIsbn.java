@@ -136,6 +136,7 @@ public class DialogBusquedaIsbn extends javax.swing.JDialog {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         String isbn = txtIsbn.getText().trim();
+        this.txtResultado.setText("");
 
         if (isbn.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor ingresa un ISBN valido.");
@@ -159,6 +160,7 @@ public class DialogBusquedaIsbn extends javax.swing.JDialog {
         NodoListaEnlazadaDoble<Biblioteca> actual = this.controlador.getBibliotecas().getInicio();
         while (actual != null) {
             this.comboBoxBibliotecas.addItem(actual.getDato().getId());
+            actual = actual.getSiguiente();
         }
     }
 

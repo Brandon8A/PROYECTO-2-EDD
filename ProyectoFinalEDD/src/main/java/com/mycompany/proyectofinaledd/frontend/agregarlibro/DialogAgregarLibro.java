@@ -218,6 +218,12 @@ public class DialogAgregarLibro extends javax.swing.JDialog {
                         Integer.valueOf(this.cajaTextoAnio.getText()), cajaTextoAutor.getText(), TypeEstado.EN_TRANSITO, false);
             }
 
+            Biblioteca origen = this.controlador.getGrafoBibliotecas().getBibliotecaPorId(comboBoxBibliotecaOrigen.getSelectedItem().toString());
+            Biblioteca destino = this.controlador.getGrafoBibliotecas().getBibliotecaPorId(comboBoxBibliotecaDestino.getSelectedItem().toString());
+
+            libroCreado.setBibliotecaOrigen(origen);
+            libroCreado.setBibliotecaDestino(destino);
+
             NodoListaEnlazadaDoble<NodoGrafo> actualNodoGrafo = this.controlador.getGrafoBibliotecas().getNodosGrafo().getInicio();
             while (actualNodoGrafo != null) {
                 //Condicional para verificar si la biblioteca origen del libro coincide con alguna de las del grafo
@@ -231,19 +237,33 @@ public class DialogAgregarLibro extends javax.swing.JDialog {
                 }
                 actualNodoGrafo = actualNodoGrafo.getSiguiente();
             }
+            String ruta;
+            
             if (libroCreado.isPrioridadTiempo()) {
                 ListaEnlazadaDoble<Biblioteca> rutaTiempo = this.controlador.getGrafoBibliotecas().dijkstra(
                         libroCreado.getBibliotecaOrigen().getId(), libroCreado.getBibliotecaDestino().getId(), true);
-                JOptionPane.showMessageDialog(null, "Ruta"+this.mostrarRuta(rutaTiempo) + "\nTiempo: " 
+                ruta = this.mostrarRuta(rutaTiempo);
+                JOptionPane.showMessageDialog(null, "Ruta" + ruta + "\nTiempo: "
                         + this.controlador.getGrafoBibliotecas().calcularTotalRuta(rutaTiempo, true),
                         "Libro guardado con exito", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 ListaEnlazadaDoble<Biblioteca> rutaCosto = this.controlador.getGrafoBibliotecas().dijkstra(
                         libroCreado.getBibliotecaOrigen().getId(), libroCreado.getBibliotecaDestino().getId(), false);
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Ruta: " + String.valueOf(this.mostrarRuta(rutaCosto))
+                        + "\nCosto: " + this.controlador.getGrafoBibliotecas()
+                                .calcularTotalRuta(rutaCosto, false),
+                        "Libro guardado con exito",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+                /*
                 JOptionPane.showMessageDialog(null, "Ruta"+this.mostrarRuta(rutaCosto) + "\nCosto: "
                         + this.controlador.getGrafoBibliotecas().calcularTotalRuta(rutaCosto, false),
                         "Libro guardado con exito", JOptionPane.INFORMATION_MESSAGE);
+                 */
             }
+            return;
 
         }
         JOptionPane.showMessageDialog(null, "Error en el formulario", "Error", JOptionPane.ERROR_MESSAGE);
@@ -254,6 +274,7 @@ public class DialogAgregarLibro extends javax.swing.JDialog {
         while (actual != null) {
             this.comboBoxBibliotecaOrigen.addItem(actual.getDato().getId());
             this.comboBoxBibliotecaDestino.addItem(actual.getDato().getId());
+            actual = actual.getSiguiente();
         }
         this.comboBoxPrioridad.addItem("Tiempo");
         this.comboBoxPrioridad.addItem("Costo");
@@ -262,7 +283,7 @@ public class DialogAgregarLibro extends javax.swing.JDialog {
     private String mostrarRuta(ListaEnlazadaDoble<Biblioteca> ruta) {
         String rutaOptima = "";
         if (ruta.getTamanio() == 0) {
-            System.out.println("⚠️ No hay ruta disponible.");
+            System.out.println("No hay ruta disponible.");
             return null;
         }
         NodoListaEnlazadaDoble<Biblioteca> actual = ruta.getInicio();
@@ -276,7 +297,7 @@ public class DialogAgregarLibro extends javax.swing.JDialog {
             actual = actual.getSiguiente();
         }
         System.out.println();
-        return "";
+        return rutaOptima;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -137,6 +137,7 @@ public class DialogBusquedaTitulo extends javax.swing.JDialog {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         String titulo = txtBuscarTitulo.getText().trim();
+        this.txtResultado.setText("");
 
         if (titulo.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor ingresa un título.");
@@ -174,6 +175,7 @@ public class DialogBusquedaTitulo extends javax.swing.JDialog {
         NodoListaEnlazadaDoble<Biblioteca> actual = this.controlador.getBibliotecas().getInicio();
         while (actual != null) {
             this.comboBoxBibliotecaOrigen.addItem(actual.getDato().getId());
+            actual = actual.getSiguiente();
         }
     }
 

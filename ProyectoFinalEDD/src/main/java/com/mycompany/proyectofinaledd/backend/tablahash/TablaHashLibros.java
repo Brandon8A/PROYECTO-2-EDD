@@ -55,7 +55,7 @@ public class TablaHashLibros {
             NodoHash actual = tabla[indice];
             while (actual.getSiguiente() != null) {
                 if (actual.getLibro().getISBN().equals(libro.getISBN())) {
-                    System.out.println("⚠️ El ISBN ya existe, no se puede insertar duplicado: " + libro.getISBN());
+                    System.out.println("El ISBN ya existe, no se puede insertar duplicado: " + libro.getISBN());
                     return;
                 }
                 actual = actual.getSiguiente();

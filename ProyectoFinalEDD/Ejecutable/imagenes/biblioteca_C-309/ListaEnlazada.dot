@@ -1,0 +1,11 @@
+digraph ListaDoble {
+  rankdir=LR;
+  node [shape=record, style=filled, fillcolor=lightblue, fontcolor=black];
+  nodo0 [label="Orgullo y prejuicio\nISBN: 978-0141439518\nAño: 1813\nGénero: Novela romantica"];
+  nodo0 -> nodo1;
+  nodo1 -> nodo0;
+  nodo1 [label="Orgullo y prejuicio\nISBN: 978-037474702\nAño: 1823\nGénero: Novela romantica"];
+  nodo1 -> nodo2;
+  nodo2 -> nodo1;
+  nodo2 [label="Orgullo y prejuicio\nISBN: 978-037474706\nAño: 2019\nGénero: Novela romantica"];
+}

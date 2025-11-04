@@ -1,0 +1,4 @@
+digraph BTree {
+  node [shape=record, style=filled, fillcolor=lightgrey];
+  node1176654401 [label="Orgullo y prejuicio\nJane Austen\n1813 | Orgullo y prejuicio\nJane Austen\n1823 | Orgullo y prejuicio\nJane Austen\n2019"];
+}

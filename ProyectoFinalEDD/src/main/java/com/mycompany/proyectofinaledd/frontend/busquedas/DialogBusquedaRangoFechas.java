@@ -146,6 +146,7 @@ public class DialogBusquedaRangoFechas extends javax.swing.JDialog {
 
     private void btnBuscarLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarLibrosActionPerformed
         // TODO add your handling code here:
+        this.txtResultado.setText("");
         try {
             int desde = Integer.parseInt(txtFechaInicio.getText());
             int hasta = Integer.parseInt(txtFechaFin.getText());
@@ -167,6 +168,7 @@ public class DialogBusquedaRangoFechas extends javax.swing.JDialog {
         NodoListaEnlazadaDoble<Biblioteca> actual = this.controlador.getBibliotecas().getInicio();
         while (actual != null) {
             this.comboBoxBibliotecas.addItem(actual.getDato().getId());
+            actual =actual.getSiguiente();
         }
     }
 

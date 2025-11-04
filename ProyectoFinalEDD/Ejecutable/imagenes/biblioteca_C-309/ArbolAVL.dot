@@ -1,0 +1,4 @@
+digraph AVL {
+node [shape=circle, style=filled, fillcolor="lightblue", fontcolor="black"];
+"Orgullo y prejuicio";
+}

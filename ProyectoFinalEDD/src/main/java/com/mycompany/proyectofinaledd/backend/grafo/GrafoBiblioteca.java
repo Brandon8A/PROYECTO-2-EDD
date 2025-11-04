@@ -179,28 +179,28 @@ public class GrafoBiblioteca {
         }
 
         // Distancias y predecesores
-        double[] dist = new double[tamanio];
-        boolean[] visited = new boolean[tamanio];
+        double[] distancias = new double[tamanio];
+        boolean[] visitado = new boolean[tamanio];
         int[] prev = new int[tamanio];
         Arrays.fill(prev, -1);
 
         for (int i = 0; i < tamanio; i++) {
-            dist[i] = Double.POSITIVE_INFINITY;
-            visited[i] = false;
+            distancias[i] = Double.POSITIVE_INFINITY;
+            visitado[i] = false;
         }
-        dist[src] = 0.0;
+        distancias[src] = 0.0;
 
         for (int count = 0; count < tamanio - 1; count++) {
             // Encontrar el nodo no visitado con distancia mínima
-            int u = minDistance(dist, visited);
+            int u = distanciaMinima(distancias, visitado);
             if (u == -1) {
                 break;
             }
-            visited[u] = true;
+            visitado[u] = true;
 
             // Relajación de aristas desde u
             for (int v = 0; v < tamanio; v++) {
-                if (visited[v]) {
+                if (visitado[v]) {
                     continue;
                 }
                 double peso;
@@ -218,15 +218,15 @@ public class GrafoBiblioteca {
                     peso = c;
                 }
 
-                if (dist[u] + peso < dist[v]) {
-                    dist[v] = dist[u] + peso;
+                if (distancias[u] + peso < distancias[v]) {
+                    distancias[v] = distancias[u] + peso;
                     prev[v] = u;
                 }
             }
         }
 
         // Si no hay camino (dist[dest] == INF)
-        if (Double.isInfinite(dist[dest]) || dist[dest] == Double.POSITIVE_INFINITY) {
+        if (Double.isInfinite(distancias[dest]) || distancias[dest] == Double.POSITIVE_INFINITY) {
             return ruta; // vacío
         }
 
@@ -303,7 +303,7 @@ public class GrafoBiblioteca {
     /**
      * Obtiene el nodo con menor distancia no visitado.
      */
-    private int minDistance(double[] dist, boolean[] visited) {
+    private int distanciaMinima(double[] dist, boolean[] visited) {
         double min = Double.POSITIVE_INFINITY;
         int min_index = -1;
         for (int v = 0; v < tamanio; v++) {

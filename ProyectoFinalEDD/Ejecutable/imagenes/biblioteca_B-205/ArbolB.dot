@@ -1,0 +1,8 @@
+digraph BTree {
+  node [shape=record, style=filled, fillcolor=lightgrey];
+  node624914614 [label="Cien años de soleda\nGabriel Garcia Marquez\n1967"];
+  node624914614 -> node2041189291;
+  node2041189291 [label="El codigo da vinci\nDan Brown\n1670 | 1984\nGeroge owell\n1948 | 1984\nGeroge owell\n1949 | Cien años de soleda\nGabriel Garcia Marquez\n1957"];
+  node624914614 -> node1517002423;
+  node1517002423 [label="El codigo da vinci\nDan Brown\n2003 | El codigo da vinci\nDan Brown\n2009 | Cien años de soleda\nGabriel Garcia Marquez\n2010 | 1984\nGeroge owell\n2010"];
+}

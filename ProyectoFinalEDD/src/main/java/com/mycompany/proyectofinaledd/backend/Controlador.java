@@ -395,18 +395,18 @@ public class Controlador {
 
             System.out.println("\n\nMatriz de tiempos: ");
             this.imprimirMatriz(this.grafoBibliotecas.getMatrizTiempos());
-            System.out.println("\n\nMatriz de tiempos: ");
+            System.out.println("\n\nMatriz de costos: ");
             this.imprimirMatrizDouble(this.grafoBibliotecas.getMatrizCostos());
 
-            System.out.println("\n💰Ruta mas rapida de A a D");
+            System.out.println("\nRuta mas rapida de A a D");
             ListaEnlazadaDoble<Biblioteca> rutaTiempo = grafoBibliotecas.dijkstra("A-101", "D-412", true);
             mostrarRuta(rutaTiempo);
             System.out.println("Tiempo total: " + grafoBibliotecas.calcularTotalRuta(rutaTiempo, true));
 
-            System.out.println("\n💰 Ruta más barata de B1 a B4 (prioridad costo):");
+            System.out.println("\nRuta más barata de B1 a B4 (prioridad costo):");
             ListaEnlazadaDoble<Biblioteca> rutaCosto = grafoBibliotecas.dijkstra("A-101", "D-412", false);
             mostrarRuta(rutaCosto);
-            System.out.println("💵 Costo total: " + grafoBibliotecas.calcularTotalRuta(rutaCosto, false));
+            System.out.println("Costo total: " + grafoBibliotecas.calcularTotalRuta(rutaCosto, false));
 
             System.out.println("✅ Carga completada: " + conexiones.getTamanio() + " conexiones agregadas al grafo.");
             JOptionPane.showMessageDialog(null,

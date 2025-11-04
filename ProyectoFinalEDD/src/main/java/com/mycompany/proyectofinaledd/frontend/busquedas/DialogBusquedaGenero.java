@@ -162,6 +162,7 @@ public class DialogBusquedaGenero extends javax.swing.JDialog {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         String genero = txtGenero.getText().trim();
+        this.txtResultado.setText("");
 
         if (genero.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor ingresa un genero.");
@@ -184,6 +185,7 @@ public class DialogBusquedaGenero extends javax.swing.JDialog {
         NodoListaEnlazadaDoble<Biblioteca> actual = this.controlador.getBibliotecas().getInicio();
         while (actual != null) {
             this.comboBoxBibliotecas.addItem(actual.getDato().getId());
+            actual = actual.getSiguiente();
         }
     }
 
