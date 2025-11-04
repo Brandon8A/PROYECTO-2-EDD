@@ -171,4 +171,66 @@ public class ArbolBMas {
         System.out.println("❌ No se encontró el libro con ISBN: " + isbn);
         return false;
     }
+
+    // Eliminar libro por género e ISBN
+    public boolean eliminarPorGeneroEISBN(String genero, String isbn) {
+        if (raiz == null) {
+            System.out.println("❌ Árbol vacío");
+            return false;
+        }
+
+        // 1️⃣ Bajar hasta la primera hoja
+        NodoArbolBMas nodo = raiz;
+        while (!nodo.isHoja()) {
+            // Buscar la posición del hijo que podría contener el género
+            int i = 0;
+            while (i < nodo.getNumClaves()
+                    && genero.compareToIgnoreCase(nodo.getClaves()[i].getGenero()) > 0) {
+                i++;
+            }
+            nodo = nodo.getHijos()[i];
+        }
+
+        // 2️⃣ Recorrer las hojas mientras haya libros del mismo género
+        while (nodo != null) {
+            boolean generoCoincide = false;
+
+            for (int i = 0; i < nodo.getNumClaves(); i++) {
+                Libro libro = nodo.getClaves()[i];
+                if (libro == null) {
+                    continue;
+                }
+
+                if (libro.getGenero().equalsIgnoreCase(genero)) {
+                    generoCoincide = true;
+
+                    if (libro.getISBN().equalsIgnoreCase(isbn)) {
+                        // 3️⃣ Eliminar el libro desplazando claves a la izquierda
+                        for (int j = i; j < nodo.getNumClaves() - 1; j++) {
+                            nodo.getClaves()[j] = nodo.getClaves()[j + 1];
+                        }
+                        nodo.getClaves()[nodo.getNumClaves() - 1] = null;
+                        nodo.setNumClaves(nodo.getNumClaves() - 1);
+
+                        System.out.println("✅ Libro eliminado del género " + genero);
+                        return true;
+                    }
+                } else if (genero.compareToIgnoreCase(libro.getGenero()) < 0 && generoCoincide) {
+                    // Si ya pasamos el bloque del género buscado, salimos
+                    return false;
+                }
+            }
+
+            nodo = nodo.getSiguienteHoja();
+            // Si cambiamos de género, dejamos de buscar
+            if (nodo != null && nodo.getClaves()[0] != null
+                    && !nodo.getClaves()[0].getGenero().equalsIgnoreCase(genero)) {
+                break;
+            }
+        }
+
+        System.out.println("❌ No se encontró el libro con ISBN: " + isbn
+                + " en el género: " + genero);
+        return false;
+    }
 }

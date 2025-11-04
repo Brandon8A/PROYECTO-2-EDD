@@ -107,16 +107,21 @@ public class ArbolB {
         return resultados;
     }
 
-    /*
-    // ---- Generar archivo .dot para Graphviz ----
-    public void generateDot(String filename) {
-        try (PrintWriter out = new PrintWriter(filename)) {
-            out.println("digraph BTree {");
-            out.println("  node [shape=record];");
-            if (raiz != null) raiz.generateDotRec(out);
-            out.println("}");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+    public void eliminar(Libro k) {
+        if (raiz == null) {
+            System.out.println("⚠ Árbol vacío, no hay nada que eliminar");
+            return;
         }
-    }*/
+
+        raiz.eliminar(k);
+
+        // Si la raíz se quedó sin claves y no es hoja, reducimos la altura del árbol
+        if (raiz.getNumeroActualClaves() == 0) {
+            if (raiz.isHoja()) {
+                raiz = null;
+            } else {
+                raiz = raiz.getNodosHijos()[0];
+            }
+        }
+    }
 }

@@ -162,11 +162,55 @@ public class ListaEnlazadaDoble<T> {
             System.out.println("⚠ Error generando imagen de la lista: " + e.getMessage());
         }
     }
-    
-    //***************************************************************************************************
 
+    // Eliminar un libro por ISBN (solo si la lista contiene objetos Libro)
+    public boolean eliminarPorISBN(String isbn) {
+        if (estaVacia()) {
+            System.out.println("❌ La lista está vacía.");
+            return false;
+        }
+
+        NodoListaEnlazadaDoble<T> actual = inicio;
+
+        while (actual != null) {
+            T dato = actual.getDato();
+
+            if (dato instanceof Libro) {
+                Libro libro = (Libro) dato;
+
+                if (libro.getISBN().equalsIgnoreCase(isbn)) {
+
+                    // Ajustar punteros para eliminar el nodo
+                    if (actual.getAnterior() != null) {
+                        actual.getAnterior().setSiguiente(actual.getSiguiente());
+                    } else {
+                        inicio = actual.getSiguiente(); // era el primero
+                    }
+
+                    if (actual.getSiguiente() != null) {
+                        actual.getSiguiente().setAnterior(actual.getAnterior());
+                    } else {
+                        fin = actual.getAnterior(); // era el último
+                    }
+
+                    tamanio--;
+
+                    System.out.println("✅ Libro eliminado con ISBN: " + isbn);
+                    return true;
+                }
+            }
+
+            actual = actual.getSiguiente();
+        }
+
+        System.out.println("⚠️ No se encontró ningún libro con ISBN: " + isbn);
+        return false;
+    }
+
+    //***************************************************************************************************
     /**
      * Metodo ordenacion Intercambio
+     *
      * @param comp se va a compara con datos del objeto tipo libro
      */
     public void ordenarPorIntercambio(Comparator<Libro> comp) {
@@ -192,7 +236,8 @@ public class ListaEnlazadaDoble<T> {
 
     /**
      * Seleccion directa
-     * @param comp 
+     *
+     * @param comp
      */
     public void ordenarPorSeleccion(Comparator<Libro> comp) {
         NodoListaEnlazadaDoble<Libro> actual = (NodoListaEnlazadaDoble<Libro>) inicio;
@@ -216,7 +261,8 @@ public class ListaEnlazadaDoble<T> {
 
     /**
      * Por insercion
-     * @param comp 
+     *
+     * @param comp
      */
     public void ordenarPorInsercion(Comparator<Libro> comp) {
         if (inicio == null || inicio.getSiguiente() == null) {
@@ -243,7 +289,8 @@ public class ListaEnlazadaDoble<T> {
 
     /**
      * Shell sort
-     * @param comp 
+     *
+     * @param comp
      */
     public void ordenarPorShell(Comparator<Libro> comp) {
         if (tamanio <= 1) {
@@ -267,7 +314,8 @@ public class ListaEnlazadaDoble<T> {
 
     /**
      * Quick sort
-     * @param comp 
+     *
+     * @param comp
      */
     public void ordenarPorQuickSort(Comparator<Libro> comp) {
         quickSortRec(0, tamanio - 1, comp);
@@ -275,9 +323,10 @@ public class ListaEnlazadaDoble<T> {
 
     /**
      * Parte del Quick sort
+     *
      * @param izquierda
      * @param derecha
-     * @param comp 
+     * @param comp
      */
     private void quickSortRec(int izquierda, int derecha, Comparator<Libro> comp) {
         if (izquierda >= derecha) {

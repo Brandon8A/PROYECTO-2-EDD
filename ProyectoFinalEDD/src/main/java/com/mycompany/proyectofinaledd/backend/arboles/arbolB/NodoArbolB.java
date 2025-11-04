@@ -163,41 +163,208 @@ public class NodoArbolB {
     }
 
     public void buscarPorRango(int anioInicio, int anioFin, List<Libro> resultados) {
-    int i;
-    for (i = 0; i < numeroActualClaves; i++) {
-        // Si no es hoja, explorar subárbol izquierdo
+        int i;
+        for (i = 0; i < numeroActualClaves; i++) {
+            // Si no es hoja, explorar subárbol izquierdo
+            if (!hoja) {
+                nodosHijos[i].buscarPorRango(anioInicio, anioFin, resultados);
+            }
+
+            int anio = claves[i].getAnio();
+            if (anio >= anioInicio && anio <= anioFin) {
+                resultados.add(claves[i]);
+            }
+        }
+
+        // Explorar el último hijo
         if (!hoja) {
             nodosHijos[i].buscarPorRango(anioInicio, anioFin, resultados);
         }
-
-        int anio = claves[i].getAnio();
-        if (anio >= anioInicio && anio <= anioFin) {
-            resultados.add(claves[i]);
-        }
     }
 
-    // Explorar el último hijo
-    if (!hoja) {
-        nodosHijos[i].buscarPorRango(anioInicio, anioFin, resultados);
-    }
-}
-    
-    /*
-    public void generateDotRec(PrintWriter out) {
-        out.print("  node" + this.hashCode() + " [label=\"");
-        for (int i = 0; i < this.numeroActualClaves; i++) {
-            out.print(this.claves[i]);
-            if (i < this.numeroActualClaves - 1) out.print(" | ");
+    // ---- Eliminación ----
+    public void eliminar(Libro k) {
+        int i = 0;
+        while (i < numeroActualClaves && k.getAnio() > claves[i].getAnio()) {
+            i++;
         }
-        out.println("\"];");
 
-        if (!hoja) {
-            for (int i = 0; i <= this.numeroActualClaves; i++) {
-                out.println("  node" + this.hashCode() + " -> node" + this.nodosHijos[i].hashCode() + ";");
-                this.nodosHijos[i].generateDotRec(out);
+        // Caso 1: El libro está en este nodo
+        if (i < numeroActualClaves && claves[i].getAnio() == k.getAnio()) {
+            if (hoja) {
+                eliminarDeHoja(i);
+            } else {
+                eliminarDeNoHoja(i);
+            }
+        } else {
+            // Caso 2: El libro está en un subárbol
+            if (hoja) {
+                System.out.println("⚠ No se encontró el libro con año: " + k.getAnio());
+                return;
+            }
+
+            // Bandera para saber si está al final
+            boolean ultimaPos = (i == numeroActualClaves);
+
+            // Si el hijo tiene menos de t claves, se corrige antes de descender
+            if (nodosHijos[i].getNumeroActualClaves() < gradoMinimo) {
+                llenar(i);
+            }
+
+            // Si se fusionó el hijo, puede haber cambiado el índice
+            if (ultimaPos && i > numeroActualClaves) {
+                nodosHijos[i - 1].eliminar(k);
+            } else {
+                nodosHijos[i].eliminar(k);
             }
         }
-    }*/
+    }
+
+// ---- Eliminar clave en hoja ----
+    private void eliminarDeHoja(int i) {
+        for (int j = i + 1; j < numeroActualClaves; j++) {
+            claves[j - 1] = claves[j];
+        }
+        numeroActualClaves--;
+    }
+
+// ---- Eliminar clave en nodo no hoja ----
+    private void eliminarDeNoHoja(int i) {
+        Libro k = claves[i];
+
+        // Caso A: El hijo izquierdo tiene >= t claves
+        if (nodosHijos[i].getNumeroActualClaves() >= gradoMinimo) {
+            Libro pred = obtenerPredecesor(i);
+            claves[i] = pred;
+            nodosHijos[i].eliminar(pred);
+        } // Caso B: El hijo derecho tiene >= t claves
+        else if (nodosHijos[i + 1].getNumeroActualClaves() >= gradoMinimo) {
+            Libro succ = obtenerSucesor(i);
+            claves[i] = succ;
+            nodosHijos[i + 1].eliminar(succ);
+        } // Caso C: Ambos hijos tienen t-1 claves → Fusionar
+        else {
+            fusionar(i);
+            nodosHijos[i].eliminar(k);
+        }
+    }
+
+// ---- Obtener predecesor ----
+    private Libro obtenerPredecesor(int i) {
+        NodoArbolB actual = nodosHijos[i];
+        while (!actual.hoja) {
+            actual = actual.nodosHijos[actual.numeroActualClaves];
+        }
+        return actual.claves[actual.numeroActualClaves - 1];
+    }
+
+// ---- Obtener sucesor ----
+    private Libro obtenerSucesor(int i) {
+        NodoArbolB actual = nodosHijos[i + 1];
+        while (!actual.hoja) {
+            actual = actual.nodosHijos[0];
+        }
+        return actual.claves[0];
+    }
+
+// ---- Asegurar que el hijo tenga al menos t claves ----
+    private void llenar(int i) {
+        if (i != 0 && nodosHijos[i - 1].getNumeroActualClaves() >= gradoMinimo) {
+            pedirPrestadoDeAnterior(i);
+        } else if (i != numeroActualClaves && nodosHijos[i + 1].getNumeroActualClaves() >= gradoMinimo) {
+            pedirPrestadoDeSiguiente(i);
+        } else {
+            if (i != numeroActualClaves) {
+                fusionar(i);
+            } else {
+                fusionar(i - 1);
+            }
+        }
+    }
+
+// ---- Pedir una clave al hijo izquierdo ----
+    private void pedirPrestadoDeAnterior(int i) {
+        NodoArbolB hijo = nodosHijos[i];
+        NodoArbolB hermano = nodosHijos[i - 1];
+
+        for (int j = hijo.numeroActualClaves - 1; j >= 0; j--) {
+            hijo.claves[j + 1] = hijo.claves[j];
+        }
+
+        if (!hijo.hoja) {
+            for (int j = hijo.numeroActualClaves; j >= 0; j--) {
+                hijo.nodosHijos[j + 1] = hijo.nodosHijos[j];
+            }
+        }
+
+        hijo.claves[0] = claves[i - 1];
+
+        if (!hermano.hoja) {
+            hijo.nodosHijos[0] = hermano.nodosHijos[hermano.numeroActualClaves];
+        }
+
+        claves[i - 1] = hermano.claves[hermano.numeroActualClaves - 1];
+
+        hijo.numeroActualClaves++;
+        hermano.numeroActualClaves--;
+    }
+
+// ---- Pedir una clave al hijo derecho ----
+    private void pedirPrestadoDeSiguiente(int i) {
+        NodoArbolB hijo = nodosHijos[i];
+        NodoArbolB hermano = nodosHijos[i + 1];
+
+        hijo.claves[hijo.numeroActualClaves] = claves[i];
+
+        if (!hijo.hoja) {
+            hijo.nodosHijos[hijo.numeroActualClaves + 1] = hermano.nodosHijos[0];
+        }
+
+        claves[i] = hermano.claves[0];
+
+        for (int j = 1; j < hermano.numeroActualClaves; j++) {
+            hermano.claves[j - 1] = hermano.claves[j];
+        }
+
+        if (!hermano.hoja) {
+            for (int j = 1; j <= hermano.numeroActualClaves; j++) {
+                hermano.nodosHijos[j - 1] = hermano.nodosHijos[j];
+            }
+        }
+
+        hijo.numeroActualClaves++;
+        hermano.numeroActualClaves--;
+    }
+
+// ---- Fusionar hijo i con su hermano derecho (i+1) ----
+    private void fusionar(int i) {
+        NodoArbolB hijo = nodosHijos[i];
+        NodoArbolB hermano = nodosHijos[i + 1];
+
+        hijo.claves[gradoMinimo - 1] = claves[i];
+
+        for (int j = 0; j < hermano.numeroActualClaves; j++) {
+            hijo.claves[j + gradoMinimo] = hermano.claves[j];
+        }
+
+        if (!hijo.hoja) {
+            for (int j = 0; j <= hermano.numeroActualClaves; j++) {
+                hijo.nodosHijos[j + gradoMinimo] = hermano.nodosHijos[j];
+            }
+        }
+
+        for (int j = i + 1; j < numeroActualClaves; j++) {
+            claves[j - 1] = claves[j];
+        }
+
+        for (int j = i + 2; j <= numeroActualClaves; j++) {
+            nodosHijos[j - 1] = nodosHijos[j];
+        }
+
+        hijo.numeroActualClaves += hermano.numeroActualClaves + 1;
+        numeroActualClaves--;
+    }
+
     public Libro[] getClaves() {
         return claves;
     }

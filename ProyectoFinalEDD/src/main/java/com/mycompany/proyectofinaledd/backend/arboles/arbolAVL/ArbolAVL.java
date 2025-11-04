@@ -203,4 +203,52 @@ public class ArbolAVL {
 
         obtenerSugerencias(nodo.getDerecha(), texto, lista);
     }
+    
+    // ---------------- MÉTODO DE ELIMINACIÓN ----------------
+    public void eliminar(String titulo) {
+        raiz = eliminarNodo(raiz, titulo);
+    }
+
+    private NodoAVL eliminarNodo(NodoAVL nodo, String titulo) {
+        if (nodo == null) {
+            return null; // No encontrado
+        }
+
+        int cmp = titulo.compareToIgnoreCase(nodo.getLibro().getTitulo());
+
+        // Búsqueda del nodo a eliminar
+        if (cmp < 0) {
+            nodo.setIzquierda(eliminarNodo(nodo.getIzquierda(), titulo));
+        } else if (cmp > 0) {
+            nodo.setDerecha(eliminarNodo(nodo.getDerecha(), titulo));
+        } else {
+            // Nodo encontrado
+            if (nodo.getIzquierda() == null && nodo.getDerecha() == null) {
+                return null; // Caso 1: sin hijos
+            } else if (nodo.getIzquierda() == null) {
+                return nodo.getDerecha(); // Caso 2: un hijo derecho
+            } else if (nodo.getDerecha() == null) {
+                return nodo.getIzquierda(); // Caso 2: un hijo izquierdo
+            } else {
+                // Caso 3: dos hijos -> buscar sucesor inorden (mínimo del subárbol derecho)
+                NodoAVL sucesor = obtenerMinimo(nodo.getDerecha());
+                nodo.setLibro(sucesor.getLibro());
+                nodo.setDerecha(eliminarNodo(nodo.getDerecha(), sucesor.getLibro().getTitulo()));
+            }
+        }
+
+        // Actualizar altura y factor de equilibrio
+        actualizarAlturaYFE(nodo);
+
+        // Balancear el nodo si es necesario
+        return balancear(nodo);
+    }
+
+    // Retorna el nodo con el valor mínimo (más a la izquierda)
+    private NodoAVL obtenerMinimo(NodoAVL nodo) {
+        while (nodo.getIzquierda() != null) {
+            nodo = nodo.getIzquierda();
+        }
+        return nodo;
+    }
 }

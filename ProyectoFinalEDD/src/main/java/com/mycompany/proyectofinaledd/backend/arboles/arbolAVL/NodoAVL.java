@@ -58,4 +58,10 @@ public class NodoAVL {
     public void setFactorEquilibrio(int factorEquilibrio) {
         this.factorEquilibrio = factorEquilibrio;
     }
+
+    public void setLibro(Libro libro) {
+        this.libro = libro;
+    }
+    
+    
 }
