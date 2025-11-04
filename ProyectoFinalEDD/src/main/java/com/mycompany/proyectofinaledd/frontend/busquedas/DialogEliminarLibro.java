@@ -22,6 +22,7 @@ public class DialogEliminarLibro extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.controlador = controlador;
+        this.asignarBibliotecasDestinoOrigen();
     }
 
     /**

@@ -13,6 +13,8 @@ import com.mycompany.proyectofinaledd.frontend.busquedas.DialogBusquedaGenero;
 import com.mycompany.proyectofinaledd.frontend.busquedas.DialogBusquedaIsbn;
 import com.mycompany.proyectofinaledd.frontend.busquedas.DialogBusquedaRangoFechas;
 import com.mycompany.proyectofinaledd.frontend.busquedas.DialogBusquedaTitulo;
+import com.mycompany.proyectofinaledd.frontend.busquedas.DialogEliminarLibro;
+import com.mycompany.proyectofinaledd.frontend.busquedas.DialogListarLibros;
 import javax.swing.JOptionPane;
 
 /**
@@ -95,6 +97,11 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         ListarLibros.setText("Listar Libros por Titulo");
+        ListarLibros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarLibrosActionPerformed(evt);
+            }
+        });
 
         jButton8.setText("Exportar Libro entre Bibliotecas");
 
@@ -326,8 +333,17 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        
+        DialogEliminarLibro eliminarLibros = new DialogEliminarLibro(null, false, controlador);
+        eliminarLibros.setLocationRelativeTo(null);
+        eliminarLibros.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void ListarLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarLibrosActionPerformed
+        // TODO add your handling code here:
+        DialogListarLibros dialogListarLibros = new DialogListarLibros(null, true, controlador);
+        dialogListarLibros.setLocationRelativeTo(null);
+        dialogListarLibros.setVisible(true);
+    }//GEN-LAST:event_ListarLibrosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ListarLibros;
