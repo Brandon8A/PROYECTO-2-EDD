@@ -7,11 +7,13 @@ package com.mycompany.proyectofinaledd.frontend.envios;
 import com.mycompany.proyectofinaledd.backend.Controlador;
 import com.mycompany.proyectofinaledd.backend.grafo.Biblioteca;
 import com.mycompany.proyectofinaledd.backend.libro.Libro;
+import com.mycompany.proyectofinaledd.backend.listaenlazada.ListaEnlazadaDoble;
 import com.mycompany.proyectofinaledd.backend.listaenlazada.NodoListaEnlazadaDoble;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -253,6 +255,46 @@ public class DialogEnvios extends javax.swing.JDialog {
                 boton.setOpaque(true);
                 boton.setBorderPainted(false);
                 actualizarPaneles();
+
+                Timer t3 = new Timer(3000, e3 -> {
+                    boton.setBackground(Color.GREEN);
+                    actualizarPaneles();
+
+                    //Calcular ruta
+                    String origen = comboBoxBibliotecaOrigen.getSelectedItem().toString();
+                    String destino = comboBoxBibliotecaDestino.getSelectedItem().toString();
+                    boolean prioridadTiempo = comboBoxPrioridad.getSelectedItem().equals("Tiempo");
+
+                    ListaEnlazadaDoble<Biblioteca> rutaCalculada = controlador.getGrafoBibliotecas()
+                            .dijkstra(origen, destino, prioridadTiempo);
+
+                    double total = controlador.getGrafoBibliotecas()
+                            .calcularTotalRuta(rutaCalculada, prioridadTiempo);
+
+                    //Mostrar mensaje con la ruta
+                    StringBuilder mensaje = new StringBuilder("Ruta óptima:\n");
+                    NodoListaEnlazadaDoble<Biblioteca> actual = rutaCalculada.getInicio();
+                    while (actual != null) {
+                        mensaje.append("📍 ").append(actual.getDato().getId());
+                        if (actual.getSiguiente() != null) {
+                            mensaje.append(" → ");
+                        }
+                        mensaje.append("\n");
+                        actual = actual.getSiguiente();
+                    }
+
+                    mensaje.append("\nTotal " + (prioridadTiempo ? "Tiempo: " : "Costo: "));
+                    mensaje.append(total >= 0 ? total : "No disponible");
+
+                    JOptionPane.showMessageDialog(
+                            this,
+                            mensaje.toString(),
+                            "Ruta Calculada",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                });
+                t3.setRepeats(false);
+                t3.start();
             });
 
             t2.setRepeats(false);
