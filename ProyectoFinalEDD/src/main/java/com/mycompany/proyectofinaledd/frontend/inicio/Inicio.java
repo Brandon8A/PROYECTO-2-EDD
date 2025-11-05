@@ -15,6 +15,7 @@ import com.mycompany.proyectofinaledd.frontend.busquedas.DialogBusquedaRangoFech
 import com.mycompany.proyectofinaledd.frontend.busquedas.DialogBusquedaTitulo;
 import com.mycompany.proyectofinaledd.frontend.busquedas.DialogEliminarLibro;
 import com.mycompany.proyectofinaledd.frontend.busquedas.DialogListarLibros;
+import com.mycompany.proyectofinaledd.frontend.envios.DialogEnvios;
 import javax.swing.JOptionPane;
 
 /**
@@ -50,7 +51,7 @@ public class Inicio extends javax.swing.JFrame {
         btnBusquedaRangoFechas = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         ListarLibros = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        btnExportarLIbros = new javax.swing.JButton();
         btnAgregarLibro = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -103,7 +104,12 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        jButton8.setText("Exportar Libro entre Bibliotecas");
+        btnExportarLIbros.setText("Exportar Libro entre Bibliotecas");
+        btnExportarLIbros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarLIbrosActionPerformed(evt);
+            }
+        });
 
         btnAgregarLibro.setText("Agregar Libro");
         btnAgregarLibro.addActionListener(new java.awt.event.ActionListener() {
@@ -179,7 +185,7 @@ public class Inicio extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(ListarLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jButton8))))
+                                        .addComponent(btnExportarLIbros))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnCargarArchivoBibliotecas, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -210,7 +216,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(ListarLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnExportarLIbros, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnGraficarEstructuras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,6 +351,13 @@ public class Inicio extends javax.swing.JFrame {
         dialogListarLibros.setVisible(true);
     }//GEN-LAST:event_ListarLibrosActionPerformed
 
+    private void btnExportarLIbrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarLIbrosActionPerformed
+        // TODO add your handling code here:
+        DialogEnvios envios = new DialogEnvios(null, false, controlador);
+        envios.setLocationRelativeTo(null);
+        envios.setVisible(true);
+    }//GEN-LAST:event_btnExportarLIbrosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ListarLibros;
     private javax.swing.JButton btnAgregarLibro;
@@ -355,10 +368,10 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton btnCargarArchivoBibliotecas;
     private javax.swing.JButton btnCargarArchivoConexiones;
     private javax.swing.JButton btnCargarArchivoLibros;
+    private javax.swing.JButton btnExportarLIbros;
     private javax.swing.JButton btnGraficarEstructuras;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
