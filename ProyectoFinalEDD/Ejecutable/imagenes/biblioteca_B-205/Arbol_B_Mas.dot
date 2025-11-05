@@ -1,9 +1,0 @@
-digraph BPlusTree {
-  node [shape=record, style=filled, fillcolor=lightgoldenrodyellow];
-  rankdir=TB;
-  node2140131435 [label="Realismo Magico\nCien años de soleda"];
-  node2140131435 -> node1676694730;
-  node1676694730 [label="Ciencia Ficcion/Distopia\n1984 | Ciencia Ficcion/Distopia\n1984 | Ciencia Ficcion/Distopia\n1984 | Realismo Magico\nCien años de soleda | Realismo Magico\nCien años de soleda"];
-  node2140131435 -> node1248736340;
-  node1248736340 [label="Realismo Magico\nCien años de soleda | Thriller/Misterio\nEl codigo da vinci | Thriller/Misterio\nEl codigo da vinci | Thriller/Misterio\nEl codigo da vinci"];
-}

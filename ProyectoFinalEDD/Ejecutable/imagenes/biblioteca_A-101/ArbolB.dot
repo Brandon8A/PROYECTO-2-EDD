@@ -1,3 +1,0 @@
-digraph BTree {
-  node [shape=record, style=filled, fillcolor=lightgrey];
-}

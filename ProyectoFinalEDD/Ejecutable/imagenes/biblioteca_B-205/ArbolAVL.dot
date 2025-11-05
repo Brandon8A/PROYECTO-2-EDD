@@ -1,8 +1,0 @@
-digraph AVL {
-node [shape=circle, style=filled, fillcolor="lightblue", fontcolor="black"];
-"Cien años de soleda";
-"Cien años de soleda" -> "1984";
-"Cien años de soleda" -> "El codigo da vinci";
-"1984";
-"El codigo da vinci";
-}
