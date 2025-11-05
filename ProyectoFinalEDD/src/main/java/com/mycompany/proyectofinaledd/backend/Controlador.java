@@ -122,15 +122,16 @@ public class Controlador {
 
                     try {
                         // Coincidir con el orden del encabezado del CSV
-                        String titulo = datos[0].trim();
-                        String isbn = datos[1].trim();
-                        String genero = datos[2].trim();
-                        int anio = Integer.parseInt(datos[3].trim());
-                        String autor = datos[4].trim();
-                        String estado = datos[5].trim();
-                        String idOrigen = datos[6].trim();
-                        String idDestino = datos[7].trim();
-                        String prioridad = datos[8].trim();
+                        // Coincidir con el orden del encabezado del CSV
+                        String titulo = limpiarComillas(datos[0]);
+                        String isbn = limpiarComillas(datos[1]);
+                        String genero = limpiarComillas(datos[2]);
+                        int anio = Integer.parseInt(limpiarComillas(datos[3]));
+                        String autor = limpiarComillas(datos[4]);
+                        String estado = limpiarComillas(datos[5]);
+                        String idOrigen = limpiarComillas(datos[6]);
+                        String idDestino = limpiarComillas(datos[7]);
+                        String prioridad = limpiarComillas(datos[8]);
 
                         // Convertir estado a enum
                         TypeEstado tipoEstado;
@@ -199,11 +200,26 @@ public class Controlador {
         this.almacenarLibrosCargados();
     }
 
+    /**
+     * Limpia comillas al inicio y final si existen.
+     */
+    private String limpiarComillas(String texto) {
+        if (texto == null) {
+            return null;
+        }
+        texto = texto.trim();
+        if ((texto.startsWith("\"") && texto.endsWith("\""))
+                || (texto.startsWith("'") && texto.endsWith("'"))) {
+            return texto.substring(1, texto.length() - 1).trim();
+        }
+        return texto;
+    }
+
     private void almacenarLibrosCargados() {
         NodoListaEnlazadaDoble<Libro> actualLibro = this.libros.getInicio();
         while (actualLibro != null) {
             NodoListaEnlazadaDoble<NodoGrafo> actualNodoGrafo = this.grafoBibliotecas.getNodosGrafo().getInicio();
-            while (actualNodoGrafo != null) {                
+            while (actualNodoGrafo != null) {
                 //Condicional para verificar si la biblioteca origen del libro coincide con alguna de las del grafo
                 if (actualLibro.getDato().getBibliotecaDestino().getId().equals(actualNodoGrafo.getDato().getBiblioteca().getId())) {
                     actualNodoGrafo.getDato().getBiblioteca().getArbolAVL().insertar(actualLibro.getDato());
@@ -217,7 +233,7 @@ public class Controlador {
             }
             actualLibro = actualLibro.getSiguiente();
         }
-        
+
     }
 
     /**
@@ -269,21 +285,25 @@ public class Controlador {
                     continue;
                 }
 
-                //Verifica que el id de la nueva biblioteca no se repita con otra ya ingresada
-                if (!validoIdBiblioteca(datos[0])) {
-                    this.erroresCargaArchivos.agregarValorAlFinal("Error de ID Biblioteca en linea: [" + numeroLinea + "] " + linea);
-                    continue;
-                }
-
+                // Coincidir con el orden del CSV
+                String id = limpiarComillas(datos[0]);
+                String nombre = limpiarComillas(datos[1]);
+                String ubicacion = limpiarComillas(datos[2]);
+                String tiempoIngresoTxt = limpiarComillas(datos[3]);
+                String tiempoTraspasoTxt = limpiarComillas(datos[4]);
+                String dispatchIntervalTxt = limpiarComillas(datos[5]);
                 //Almacena la nueva biblioteca en la lista enlazada
                 try {
-                    // Coincidir con el orden del CSV
-                    String id = datos[0].trim();
-                    String nombre = datos[1].trim();
-                    String ubicacion = datos[2].trim();
-                    int tiempoIngreso = Integer.parseInt(datos[3].trim());
-                    int tiempoTraspaso = Integer.parseInt(datos[4].trim());
-                    int dispatchInterval = Integer.parseInt(datos[5].trim());
+
+                    int tiempoIngreso = Integer.parseInt(tiempoIngresoTxt);
+                    int tiempoTraspaso = Integer.parseInt(tiempoTraspasoTxt);
+                    int dispatchInterval = Integer.parseInt(dispatchIntervalTxt);
+
+                    //Verifica que el id de la nueva biblioteca no se repita con otra ya ingresada
+                    if (!validoIdBiblioteca(id)) {
+                        this.erroresCargaArchivos.agregarValorAlFinal("Error de ID Biblioteca en linea: [" + numeroLinea + "] " + linea);
+                        continue;
+                    }
 
                     // Crear biblioteca con los nuevos datos
                     Biblioteca biblioteca = new Biblioteca(id, nombre, ubicacion, tiempoIngreso, tiempoTraspaso, dispatchInterval);
@@ -294,11 +314,12 @@ public class Controlador {
                     this.grafoBibliotecas.getNodosGrafo().agregarValorAlFinal(new NodoGrafo(biblioteca));
 
                 } catch (Exception e) {
-                    System.out.println("⚠ Error procesando línea " + numeroLinea + ": " + e.getMessage());
+                    System.out.println("⚠Error procesando línea " + numeroLinea + ": " + e.getMessage());
+                    this.erroresCargaArchivos.agregarValorAlFinal("⚠ Error procesando línea " + numeroLinea);
                 }
             }
 
-            System.out.println("✅ Carga completada: " + bibliotecas.getTamanio() + " bibliotecas cargadas.");
+            System.out.println("✅Carga completada: " + bibliotecas.getTamanio() + " bibliotecas cargadas.");
             JOptionPane.showMessageDialog(null,
                     "Se cargaron un total de: " + bibliotecas.getTamanio() + " bibliotecas con éxito!",
                     "Éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -363,10 +384,13 @@ public class Controlador {
                 }
 
                 try {
-                    String idOrigen = datos[0].trim();
-                    String idDestino = datos[1].trim();
-                    int tiempo = Integer.parseInt(datos[2].trim());
-                    double costo = Double.parseDouble(datos[3].trim());
+                    String idOrigen = limpiarComillas(datos[0]);
+                    String idDestino = limpiarComillas(datos[1]);
+                    String tiempoTxt = limpiarComillas(datos[2]);
+                    String costoTxt = limpiarComillas(datos[3]);
+
+                    int tiempo = Integer.parseInt(tiempoTxt);
+                    double costo = Double.parseDouble(costoTxt);
 
                     // Buscar las bibliotecas registradas en el grafo
                     Biblioteca origen = grafoBibliotecas.getBibliotecaPorId(idOrigen);
