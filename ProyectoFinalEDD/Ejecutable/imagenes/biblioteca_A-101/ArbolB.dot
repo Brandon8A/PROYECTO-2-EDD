@@ -1,0 +1,20 @@
+digraph BTree {
+  node [shape=record, style=filled, fillcolor=lightgrey];
+  node187547571 [label="IT (ESO)\nStephen King\n1986"];
+  node187547571 -> node1606281478;
+  node1606281478 [label="Los Miserables\nVictor Hugo\n1862 | 1984\nGeorge Orwell\n1949"];
+  node1606281478 -> node182596641;
+  node182596641 [label="Don Quijote de la Mancha\nMiguel de Cervantes\n1605 | Orgullo y prejuicio\nJane Austen\n1813 | Jane Eyre\nCharlotte Brontë\n1847"];
+  node1606281478 -> node2074752336;
+  node2074752336 [label="Veinte mil leguas de viaje submarino\nJulio Verne\n1870 | La Guerra de los Mundos\nH.G. Wells\n1898 | La Metamorfosis\nFranz Kafka\n1915 | Un Mundo Feliz\nAldous Huxley\n1932 | El diario de Ana Frank\nAna Frank\n1947"];
+  node1606281478 -> node1415962930;
+  node1415962930 [label="El Laberinto de la Soledad\nOctavio Paz\n1950 | El Retorno del Rey\nJ.R.R. Tolkien\n1954 | Matar a un ruiseñor\nHarper Lee\n1960 | El nombre de la rosa\nUmberto Eco\n1980"];
+  node187547571 -> node1679873889;
+  node1679873889 [label="Fortaleza Digital\nDan Brown\n1998 | En Llamas\nSuzanne Collins\n2009"];
+  node1679873889 -> node2147001592;
+  node2147001592 [label="Eva Luna\nIsabel Allende\n1987 | Juego de Tronos\nGeorge R.R. Martin\n1996"];
+  node1679873889 -> node1439829730;
+  node1439829730 [label="Marina\nCarlos Ruiz Zafón\n1999 | El Código Da Vinci\nDan Brown\n2003 | Harry Potter y las Reliquias de la Muerte\nJ.K. Rowling\n2007"];
+  node1679873889 -> node776276251;
+  node776276251 [label="La caída de los gigantes\nKen Follett\n2010 | El Caballero de los Siete Reinos\nGeorge R.R. Martin\n2013 | Homo Deus: Breve historia del mañana\nYuval Noah Harari\n2016"];
+}

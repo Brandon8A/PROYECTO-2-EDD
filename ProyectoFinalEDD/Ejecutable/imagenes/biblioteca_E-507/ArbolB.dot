@@ -1,0 +1,14 @@
+digraph BTree {
+  node [shape=record, style=filled, fillcolor=lightgrey];
+  node1958232967 [label="El Gran Gatsby\nF. Scott Fitzgerald\n1925 | Cien años de soledad\nGabriel García Márquez\n1967 | Harry Potter y la Piedra Filosofal\nJ.K. Rowling\n1997 | Los Hombres que no Amaban a las Mujeres\nStieg Larsson\n2005"];
+  node1958232967 -> node376814688;
+  node376814688 [label="Orgullo y prejuicio\nJane Austen\n1813 | Grandes Esperanzas\nCharles Dickens\n1861 | El Retrato de Dorian Gray\nOscar Wilde\n1890"];
+  node1958232967 -> node614676486;
+  node614676486 [label="Lo que el viento se llevó\nMargaret Mitchell\n1936 | Fahrenheit 451\nRay Bradbury\n1953 | Pedro Páramo\nJuan Rulfo\n1955"];
+  node1958232967 -> node468316225;
+  node468316225 [label="Tokio Blues (Norwegian Wood)\nHaruki Murakami\n1987 | Los pilares de la Tierra\nKen Follett\n1989 | Las Luces de Septiembre\nCarlos Ruiz Zafón\n1995 | El Diario de Bridget Jones\nHelen Fielding\n1996"];
+  node1958232967 -> node763051200;
+  node763051200 [label="Harry Potter y el Prisionero de Azkaban\nJ.K. Rowling\n1999 | El Código Da Vinci\nDan Brown\n2003"];
+  node1958232967 -> node374735795;
+  node374735795 [label="Los Juegos del Hambre\nSuzanne Collins\n2008 | Danza de Dragones\nGeorge R.R. Martin\n2011 | Sidi\nArturo Pérez-Reverte\n2019"];
+}

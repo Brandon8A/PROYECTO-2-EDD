@@ -1,0 +1,13 @@
+digraph BPlusTree {
+  node [shape=record, style=filled, fillcolor=lightgoldenrodyellow];
+  rankdir=TB;
+  node2134371519 [label="Fantasía Juvenil\nHarry Potter y el Prisionero de Azkaban | Novela Contemporánea\nTokio Blues (Norwegian Wood) | Novela Romántica\nOrgullo y prejuicio"];
+  node2134371519 -> node199115429;
+  node199115429 [label="Ciencia Ficción/Distopía\nFahrenheit 451 | Ciencia Ficción/Distopía\nLos Juegos del Hambre | Fantasía Juvenil\nHarry Potter y la Piedra Filosofal | Fantasía Juvenil\nHarry Potter y el Prisionero de Azkaban"];
+  node2134371519 -> node758354934;
+  node758354934 [label="Fantasía Épica\nDanza de Dragones | Ficción Clásica\nEl Gran Gatsby | Ficción Juvenil/Misterio\nLas Luces de Septiembre | Misterio/Thriller\nLos Hombres que no Amaban a las Mujeres | Novela Clásica\nGrandes Esperanzas | Novela Contemporánea\nTokio Blues (Norwegian Wood)"];
+  node2134371519 -> node1157664757;
+  node1157664757 [label="Novela Filosófica\nEl Retrato de Dorian Gray | Novela Histórica\nLos pilares de la Tierra | Novela Histórica\nSidi | Novela Romántica\nOrgullo y prejuicio"];
+  node2134371519 -> node93503998;
+  node93503998 [label="Novela Romántica/Chick Lit\nEl Diario de Bridget Jones | Novela Romántica/Histórica\nLo que el viento se llevó | Realismo Mágico\nCien años de soledad | Realismo Mágico\nPedro Páramo | Thriller/Misterio\nEl Código Da Vinci"];
+}

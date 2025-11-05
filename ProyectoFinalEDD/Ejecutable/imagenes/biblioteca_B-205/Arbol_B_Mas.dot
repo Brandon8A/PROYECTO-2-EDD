@@ -1,0 +1,17 @@
+digraph BPlusTree {
+  node [shape=record, style=filled, fillcolor=lightgoldenrodyellow];
+  rankdir=TB;
+  node676631569 [label="Aventura/Ciencia Ficción\nViaje al centro de la Tierra | Fantasía Juvenil\nHarry Potter y la Piedra Filosofal | Fantasía Épica\nLa Comunidad del Anillo | Novela Filosófica\nCrimen y castigo | Realismo Mágico\nCien años de soledad"];
+  node676631569 -> node2001385203;
+  node2001385203 [label="Aventura\nMoby Dick | Aventura\nLa Isla del Tesoro | Aventura/Ciencia Ficción\nViaje al centro de la Tierra"];
+  node676631569 -> node203064426;
+  node203064426 [label="Ciencia Ficción\nLa Máquina del Tiempo | Ciencia Ficción/Distopía\n1984 | Ciencia Ficción/Distopía\nSinsajo | Fantasía Juvenil\nHarry Potter y la Piedra Filosofal"];
+  node676631569 -> node1792763728;
+  node1792763728 [label="Fantasía Juvenil\nEl Hobbit | Fantasía Juvenil\nHarry Potter y la Orden del Fénix | Fantasía Épica\nLa Comunidad del Anillo"];
+  node676631569 -> node1721995782;
+  node1721995782 [label="Fantasía Épica\nChoque de Reyes | Ficción Histórica\nEl Lector | Ficción Histórica/Thriller\nEl Perfume | Ficción Juvenil/Misterio\nEl Palacio de la Medianoche | Misterio/Ficción Histórica\nLa sombra del viento | Novela Filosófica\nCrimen y castigo"];
+  node676631569 -> node1148996879;
+  node1148996879 [label="Novela Gótica/Romántica\nCumbres Borrascosas | Novela Romántica\nOrgullo y prejuicio | Realismo Mágico\nCien años de soledad"];
+  node676631569 -> node480094270;
+  node480094270 [label="Realismo Mágico\nEl amor en los tiempos del cólera | Realismo Mágico\nPaula | Sátira Política/Distopía\nRebelión en la Granja | Terror\nIT (ESO) | Thriller Político\nPunto de Engaño | Thriller/Misterio\nEl Símbolo Perdido"];
+}

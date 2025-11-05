@@ -1,0 +1,17 @@
+digraph BPlusTree {
+  node [shape=record, style=filled, fillcolor=lightgoldenrodyellow];
+  rankdir=TB;
+  node1247448221 [label="Fantasía Infantil\nEl príncipe Caspian | Fantasía Épica\nLa Comunidad del Anillo | Misterio/Ficción Histórica\nEl juego del ángel | Novela Filosófica\nSiddhartha | Realismo Mágico\nEl General en su Laberinto"];
+  node1247448221 -> node1067845713;
+  node1067845713 [label="Aventura/Juvenil\nLas Aventuras de Tom Sawyer | Ciencia Ficción/Distopía\n1984 | Ciencia Ficción/Distopía\nUn Mundo Feliz | Fantasía Infantil\nEl príncipe Caspian"];
+  node1247448221 -> node397413443;
+  node397413443 [label="Fantasía Juvenil\nHarry Potter y la Cámara Secreta | Fantasía Juvenil\nHarry Potter y el Cáliz de Fuego | Fantasía Juvenil\nEl Hobbit | Fantasía Juvenil\nHarry Potter y el Misterio del Príncipe | Fantasía Épica\nLa Comunidad del Anillo"];
+  node1247448221 -> node1082354338;
+  node1082354338 [label="Fantasía Épica\nEl nombre del viento | Fantasía Épica\nTormenta de Espadas | Ficción Contemporánea\nLo que no tiene nombre | Misterio/Ficción Histórica\nEl juego del ángel"];
+  node1247448221 -> node1587750987;
+  node1587750987 [label="Misterio/Thriller\nLa Chica que Soñaba con una Cerilla y un Bidón de Gasolina | Novela Experimental\nRayuela | Novela Filosófica\nSiddhartha"];
+  node1247448221 -> node1372084046;
+  node1372084046 [label="Novela Filosófica\nEnsayo sobre la ceguera | Novela Histórica\nLa Sombra del Águila | Novela Romántica/Realismo\nAnna Karenina | Realismo Mágico\nCien años de soledad | Realismo Mágico\nEl General en su Laberinto"];
+  node1247448221 -> node1183685408;
+  node1183685408 [label="Terror Gótico\nLa Dama de Negro | Terror/Gótico\nDrácula | Thriller\nEl Psicoanalista | Thriller/Misterio\nEl Código Da Vinci"];
+}

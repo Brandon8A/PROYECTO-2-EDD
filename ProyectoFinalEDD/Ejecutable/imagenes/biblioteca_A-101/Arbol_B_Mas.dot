@@ -1,0 +1,15 @@
+digraph BPlusTree {
+  node [shape=record, style=filled, fillcolor=lightgoldenrodyellow];
+  rankdir=TB;
+  node1985608294 [label="Ciencia Ficción/Distopía\n1984 | Fantasía Épica\nEl Retorno del Rey | No Ficción/Historia\nHomo Deus: Breve historia del mañana | Novela Histórica\nLa caída de los gigantes"];
+  node1985608294 -> node867782481;
+  node867782481 [label="Absurdo/Existencialismo\nLa Metamorfosis | Aventura/Ciencia Ficción\nVeinte mil leguas de viaje submarino | Biografía/Historia\nEl diario de Ana Frank | Ciencia Ficción\nLa Guerra de los Mundos | Ciencia Ficción/Distopía\n1984 | Ciencia Ficción/Distopía\nEn Llamas"];
+  node1985608294 -> node900896236;
+  node900896236 [label="Ciencia Ficción/Distopía\nUn Mundo Feliz | Clásico\nDon Quijote de la Mancha | Ensayo/Filosofía\nEl Laberinto de la Soledad | Fantasía Juvenil\nHarry Potter y las Reliquias de la Muerte | Fantasía Épica\nEl Retorno del Rey"];
+  node1985608294 -> node467880983;
+  node467880983 [label="Fantasía Épica\nJuego de Tronos | Fantasía Épica\nEl Caballero de los Siete Reinos | Ficción Clásica\nMatar a un ruiseñor | Ficción Histórica/Misterio\nEl nombre de la rosa | Ficción Juvenil/Misterio\nMarina | No Ficción/Historia\nHomo Deus: Breve historia del mañana"];
+  node1985608294 -> node584064967;
+  node584064967 [label="Novela Gótica/Romántica\nJane Eyre | Novela Histórica\nLos Miserables | Novela Histórica\nLa caída de los gigantes"];
+  node1985608294 -> node1542070027;
+  node1542070027 [label="Novela Romántica\nOrgullo y prejuicio | Realismo Mágico\nEva Luna | Terror\nIT (ESO) | Thriller Tecnológico\nFortaleza Digital | Thriller/Misterio\nEl Código Da Vinci"];
+}

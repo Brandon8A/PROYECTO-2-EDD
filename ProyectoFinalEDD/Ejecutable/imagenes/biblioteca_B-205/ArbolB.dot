@@ -1,0 +1,16 @@
+digraph BTree {
+  node [shape=record, style=filled, fillcolor=lightgrey];
+  node861909597 [label="Viaje al centro de la Tierra\nJulio Verne\n1864 | El Hobbit\nJ.R.R. Tolkien\n1937 | La Comunidad del Anillo\nJ.R.R. Tolkien\n1954 | IT (ESO)\nStephen King\n1986 | La sombra del viento\nCarlos Ruiz Zafón\n2001"];
+  node861909597 -> node1632019656;
+  node1632019656 [label="Orgullo y prejuicio\nJane Austen\n1813 | Cumbres Borrascosas\nEmily Brontë\n1847 | Moby Dick\nHerman Melville\n1851"];
+  node861909597 -> node802443160;
+  node802443160 [label="Crimen y castigo\nFiódor Dostoievski\n1866 | La Isla del Tesoro\nRobert Louis Stevenson\n1883 | La Máquina del Tiempo\nH.G. Wells\n1895"];
+  node861909597 -> node1841437797;
+  node1841437797 [label="Rebelión en la Granja\nGeorge Orwell\n1945 | 1984\nGeorge Orwell\n1949"];
+  node861909597 -> node599885530;
+  node599885530 [label="Cien años de soledad\nGabriel García Márquez\n1967 | El Perfume\nPatrick Süskind\n1985 | El amor en los tiempos del cólera\nGabriel García Márquez\n1985"];
+  node861909597 -> node2012550798;
+  node2012550798 [label="Paula\nIsabel Allende\n1994 | El Palacio de la Medianoche\nCarlos Ruiz Zafón\n1994 | El Lector\nBernhard Schlink\n1995 | Harry Potter y la Piedra Filosofal\nJ.K. Rowling\n1997 | Choque de Reyes\nGeorge R.R. Martin\n1998"];
+  node861909597 -> node2052075367;
+  node2052075367 [label="Punto de Engaño\nDan Brown\n2003 | Harry Potter y la Orden del Fénix\nJ.K. Rowling\n2003 | El Símbolo Perdido\nDan Brown\n2009 | Sinsajo\nSuzanne Collins\n2010"];
+}

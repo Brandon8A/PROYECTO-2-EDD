@@ -1,0 +1,22 @@
+digraph BTree {
+  node [shape=record, style=filled, fillcolor=lightgrey];
+  node1664689436 [label="El Alquimista\nPaulo Coelho\n1988"];
+  node1664689436 -> node2145171253;
+  node2145171253 [label="Mujercitas\nLouisa May Alcott\n1868 | El Principito\nAntoine de Saint-Exupéry\n1943 | Cien años de soledad\nGabriel García Márquez\n1967"];
+  node2145171253 -> node276324033;
+  node276324033 [label="Frankenstein\nMary Shelley\n1818 | Historia de dos ciudades\nCharles Dickens\n1859"];
+  node2145171253 -> node1725242458;
+  node1725242458 [label="Guerra y Paz\nLeón Tolstói\n1869 | Las Aventuras de Huckleberry Finn\nMark Twain\n1884 | Drácula\nBram Stoker\n1897"];
+  node2145171253 -> node1282327641;
+  node1282327641 [label="1984\nGeorge Orwell\n1949 | Las Dos Torres\nJ.R.R. Tolkien\n1954"];
+  node2145171253 -> node1452386302;
+  node1452386302 [label="El Resplandor\nStephen King\n1977 | El Silmarillion\nJ.R.R. Tolkien\n1977 | Crónica de una muerte anunciada\nGabriel García Márquez\n1981 | La Casa de los Espíritus\nIsabel Allende\n1982"];
+  node1664689436 -> node72185275;
+  node72185275 [label="Festín de Cuervos\nGeorge R.R. Martin\n2005 | Temor de un hombre sabio\nPatrick Rothfuss\n2011"];
+  node72185275 -> node1253346980;
+  node1253346980 [label="El Capitán Alatriste\nArturo Pérez-Reverte\n1996 | Kafka en la orilla\nHaruki Murakami\n2002 | El Código Da Vinci\nDan Brown\n2003 | Harry Potter y la Orden del Fénix\nJ.K. Rowling\n2003"];
+  node72185275 -> node1883428775;
+  node1883428775 [label="La Cabaña\nWilliam P. Young\n2007 | La Reina en el Palacio de las Corrientes de Aire\nStieg Larsson\n2007"];
+  node72185275 -> node725032966;
+  node725032966 [label="Sapiens: De animales a dioses\nYuval Noah Harari\n2011 | Inferno\nDan Brown\n2013 | Titulo 1\nAutor 1\n2018"];
+}

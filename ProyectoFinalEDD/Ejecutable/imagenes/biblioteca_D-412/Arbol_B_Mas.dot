@@ -1,0 +1,19 @@
+digraph BPlusTree {
+  node [shape=record, style=filled, fillcolor=lightgoldenrodyellow];
+  rankdir=TB;
+  node706154475 [label="Fantasía Épica\nTemor de un hombre sabio | Ficción Clásica\nMujercitas | Gótico/Ciencia Ficción\nFrankenstein | Novela de Autoayuda\nEl Alquimista | Realismo Mágico\nCien años de soledad | Terror\nEl Resplandor"];
+  node706154475 -> node1284377313;
+  node1284377313 [label="Aventura/Histórica\nEl Capitán Alatriste | Aventura/Juvenil\nLas Aventuras de Huckleberry Finn | Ciencia Ficción/Distopía\n1984 | Fantasía Juvenil\nHarry Potter y la Orden del Fénix | Fantasía Épica\nLas Dos Torres | Fantasía Épica\nTemor de un hombre sabio"];
+  node706154475 -> node1588278374;
+  node1588278374 [label="Fantasía Épica\nEl Silmarillion | Fantasía Épica\nFestín de Cuervos | Ficción Clásica\nMujercitas"];
+  node706154475 -> node1507302413;
+  node1507302413 [label="Ficción Infantil\nEl Principito | Ficción Religiosa\nLa Cabaña | Genero 1\nTitulo 1 | Gótico/Ciencia Ficción\nFrankenstein"];
+  node706154475 -> node1269676171;
+  node1269676171 [label="Misterio/Thriller\nLa Reina en el Palacio de las Corrientes de Aire | No Ficción/Historia\nSapiens: De animales a dioses | Novela de Autoayuda\nEl Alquimista"];
+  node706154475 -> node2009627165;
+  node2009627165 [label="Novela Histórica/Clásico\nGuerra y Paz | Novela Histórica/Clásico\nHistoria de dos ciudades | Realismo Mágico\nCien años de soledad"];
+  node706154475 -> node1883732102;
+  node1883732102 [label="Realismo Mágico\nCrónica de una muerte anunciada | Realismo Mágico\nKafka en la orilla | Realismo Mágico\nLa Casa de los Espíritus | Terror\nEl Resplandor"];
+  node706154475 -> node353740151;
+  node353740151 [label="Terror/Gótico\nDrácula | Thriller/Misterio\nEl Código Da Vinci | Thriller/Misterio\nInferno"];
+}

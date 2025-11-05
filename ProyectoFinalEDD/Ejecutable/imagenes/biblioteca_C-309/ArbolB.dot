@@ -1,0 +1,16 @@
+digraph BTree {
+  node [shape=record, style=filled, fillcolor=lightgrey];
+  node1804445 [label="Siddhartha\nHermann Hesse\n1922 | 1984\nGeorge Orwell\n1949 | Cien años de soledad\nGabriel García Márquez\n1967 | Harry Potter y el Cáliz de Fuego\nJ.K. Rowling\n2000 | El Código Da Vinci\nDan Brown\n2003"];
+  node1804445 -> node1082015977;
+  node1082015977 [label="Las Aventuras de Tom Sawyer\nMark Twain\n1876 | Anna Karenina\nLeón Tolstói\n1877 | Drácula\nBram Stoker\n1897"];
+  node1804445 -> node910431600;
+  node910431600 [label="Un Mundo Feliz\nAldous Huxley\n1932 | El Hobbit\nJ.R.R. Tolkien\n1937"];
+  node1804445 -> node1998969119;
+  node1998969119 [label="El príncipe Caspian\nC.S. Lewis\n1951 | La Comunidad del Anillo\nJ.R.R. Tolkien\n1954 | Rayuela\nJulio Cortázar\n1963"];
+  node1804445 -> node732362758;
+  node732362758 [label="La Dama de Negro\nSusan Hill\n1983 | El General en su Laberinto\nGabriel García Márquez\n1989 | La Sombra del Águila\nArturo Pérez-Reverte\n1993 | Ensayo sobre la ceguera\nJosé Saramago\n1995 | Harry Potter y la Cámara Secreta\nJ.K. Rowling\n1998"];
+  node1804445 -> node434998419;
+  node434998419 [label="Tormenta de Espadas\nGeorge R.R. Martin\n2000 | El Psicoanalista\nJohn Katzenbach\n2002"];
+  node1804445 -> node253031755;
+  node253031755 [label="Harry Potter y el Misterio del Príncipe\nJ.K. Rowling\n2005 | La Chica que Soñaba con una Cerilla y un Bidón de Gasolina\nStieg Larsson\n2006 | El nombre del viento\nPatrick Rothfuss\n2007 | El juego del ángel\nCarlos Ruiz Zafón\n2008 | Lo que no tiene nombre\nPilar Quintana\n2010"];
+}
